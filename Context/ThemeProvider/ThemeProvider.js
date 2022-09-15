@@ -1,7 +1,4 @@
 import React, { useState, useContext } from "react";
-import { FilterNav } from "../../component/molecules";
-import Home from "../../pages";
-import styles from "../../styles/Home.module.css";
 
 const ThemeContext = React.createContext();
 const ThemeUpdateContext = React.createContext();
@@ -21,7 +18,6 @@ function ThemeProvider({ children }) {
     setDarkTheme((prevDarkTheme) => !prevDarkTheme);
   }
 
-  console.log("theme", darkTheme);
   return (
     <ThemeContext.Provider value={darkTheme}>
       <ThemeUpdateContext.Provider value={toggleTheme}>

@@ -7,7 +7,7 @@
   align-items: center;
   column-gap: 16px;
   padding: 32px 0 72px 0;
-  margin-right: 24px;
+  margin-right: 6.4%;
 }
 
 .button {
@@ -88,7 +88,7 @@
 
 @media screen and (min-width: 500px) {
   .toggle-container {
-    margin-right: 40px;
+    margin-right: 5.2%;
   }
 }
 @media screen and (min-width: 1000px) {

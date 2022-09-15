@@ -26,13 +26,11 @@
 
 .large {
   width: 74%;
-  /* width: 279px; */
   height: 48px;
 }
 
 .xlLarge {
   width: 87%;
-  /* width: 327px; */
   height: 48px;
 }
 
@@ -68,8 +66,6 @@
 
 .filterOption {
   background-color: transparent;
-  /* border: 1px solid red; */
-
   font-weight: 700;
   margin-right: 5px;
   width: 100px;

@@ -1,8 +1,10 @@
 .img {
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
   border-radius: 8px;
   margin-top: -30px;
   margin-left: 32px;
   margin-right: 257px;
+  object-fit: contain;
+  background-color: white;
 }

@@ -5,12 +5,13 @@
   font-weight: 500;
   padding: 32px 0 72px 0;
   margin: 0;
-  margin-left: 24px;
+
+  margin-left: 6.4%;
 }
 
 @media screen and (min-width: 500px) {
   .logo {
-    margin-left: 40px;
+    margin-left: 5.2%;
   }
 }
 @media screen and (min-width: 1000px) {

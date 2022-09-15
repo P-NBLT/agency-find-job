@@ -1,7 +1,5 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
 import styles from "./Card.module.css";
-import { InfoCard, Image, Button } from "../../atoms";
+import { InfoCard, Image } from "../../atoms";
 import { useTheme } from "../../../Context/ThemeProvider/ThemeProvider";
 import { useData } from "../../../Context/FilterProvider/FilterProvider";
 import { usePagination } from "../../../Context/PaginationProvider/PaginationProvider";
@@ -11,7 +9,6 @@ const Card = (props) => {
   const cards = usePagination().cards;
 
   const data = useData();
-  console.log(pages);
   const CARD_STYLE = {
     backgroundColor: darkTheme ? "var(--dark-blue)" : "white",
   };
@@ -22,10 +19,12 @@ const Card = (props) => {
     for (let index = pages * 20; index < arrData.length; index++) {
       if (index < 20 * (cards + 1)) {
         res.push(
-          <div
+          <a
             key={arrData[index].name}
             className={styles.card}
             style={CARD_STYLE}
+            href={arrData[index].website}
+            target="_blank"
           >
             <Image img={arrData[index].eguideImageSrc} />
 
@@ -55,7 +54,7 @@ const Card = (props) => {
               variant="city"
               margin="mg-t-b-l"
             />
-          </div>
+          </a>
         );
       }
     }

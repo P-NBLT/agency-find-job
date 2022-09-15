@@ -1,10 +1,13 @@
 import ThemeProvider from "../Context/ThemeProvider/ThemeProvider";
+import FilterProvider from "../Context/FilterProvider/FilterProvider";
 import "../styles/globals.css";
 
 function MyApp({ Component, pageProps }) {
   return (
     <ThemeProvider>
-      <Component {...pageProps} />
+      <FilterProvider>
+        <Component {...pageProps} />
+      </FilterProvider>
     </ThemeProvider>
   );
 }

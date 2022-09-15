@@ -1,11 +1,7 @@
 import styles from "../styles/Home.module.css";
 import Head from "next/head";
-import { Button, Toggle } from "../component/atoms";
 import { FilterNav, Header } from "../component/molecules";
-import FilterProvider from "../Context/FilterProvider/FilterProvider";
 import { useTheme } from "../Context/ThemeProvider/ThemeProvider";
-import { useEffect, useState } from "react";
-import Card from "../component/molecules/Card/Card";
 import ModalProvider from "../Context/ModalProvider/ModalProvider";
 import PaginationProvider from "../Context/PaginationProvider/PaginationProvider";
 import { ContentResult } from "../component/organism";
@@ -24,15 +20,14 @@ export default function Home() {
       </Head>
 
       <Header />
+      <ModalProvider>
+        <FilterNav />
+      </ModalProvider>
 
-      <FilterProvider>
-        <ModalProvider>
-          <FilterNav />
-        </ModalProvider>
-        <PaginationProvider>
-          <ContentResult />
-        </PaginationProvider>
-      </FilterProvider>
+      <PaginationProvider>
+        <ContentResult />
+      </PaginationProvider>
+
       <div className={styles.paginationButton}></div>
     </div>
   );

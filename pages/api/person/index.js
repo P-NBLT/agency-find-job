@@ -1,5 +1,3 @@
-import { dataSet } from "../../../data/data";
-
 export default function hundler(req, res) {
   const { method } = req;
   if (method === "GET") {

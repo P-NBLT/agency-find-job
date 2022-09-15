@@ -28,7 +28,7 @@ const FilterNav = ({ children, variant, ...props }) => {
   function getInput(e) {
     let input = e.target.value;
     let id = e.target.id;
-    filter.getFilterCommand(input, id);
+    filter.handleTextInput(input, id);
   }
 
   const BACKGROUND_FIELD = {
@@ -45,11 +45,9 @@ const FilterNav = ({ children, variant, ...props }) => {
           <p>Company size:</p>
           {["1-10", "11-50", "51-100", "GT-100"].map((option) => (
             <RadioCheckbox
-              type="checkbox"
               id={option}
               key={option}
-              topic="size"
-              onChange={(e, id, topic) => {
+              onChange={(e) => {
                 filter.handleCheckbox(option, "size", e.target.checked);
               }}
               checked={filter.keywords?.size?.includes(option) || false}
@@ -94,7 +92,7 @@ const FilterNav = ({ children, variant, ...props }) => {
           </Button>
         </div>
       </div>
-      {/* mobile */}
+      {/* mobile version below*/}
       <div className={styles.mobileContainer}>
         <div className={styles.mobile} style={BACKGROUND_FIELD}>
           <InputFilterNav

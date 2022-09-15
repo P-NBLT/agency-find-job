@@ -3,7 +3,6 @@
   justify-content: center;
 }
 .mobile {
-  /* background-color: white; */
   margin: -40px 24px 0 24px;
   display: flex;
   flex-basis: auto;
@@ -73,8 +72,4 @@
     padding: 0 16px 0 32px;
     width: clamp(850px, 77.7%, 1300px);
   }
-
-  /* .filterPic {
-    margin-right: clamp(26px, 2%, 40px);
-  } */
 }
