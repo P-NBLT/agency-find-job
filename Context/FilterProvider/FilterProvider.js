@@ -24,7 +24,7 @@ function FilterProvider({ children }) {
       return { ...current, [topic]: keyword };
     });
   }
-
+  console.log(keywords);
   function handleCheckbox(value, topic, boolean) {
     let keywordsCopy = { ...keywords };
 
@@ -38,7 +38,7 @@ function FilterProvider({ children }) {
         ...keywordsCopy,
         [topic]: keywords[topic].filter((option) => option !== value),
       };
-      if (keywords[topic].length === 0) {
+      if (keywords[topic].length <= 1) {
         delete keywordsCopy.size;
       }
     }
