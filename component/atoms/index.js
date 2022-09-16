@@ -8,3 +8,4 @@ export { default as SubTitle } from "../atoms/Text/SubTitle/SubTitle";
 export { default as Title } from "../atoms/Text/Title/Title";
 export { default as Image } from "../atoms/Image/Image";
 export { default as RadioCheckbox } from "../atoms/RadioCheckbox/RadioCheckbox";
+export { default as Settings } from "../atoms/Settings/Settings";

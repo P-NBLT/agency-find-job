@@ -7,7 +7,9 @@ const Header = (props) => {
   return (
     <div className={styles.header}>
       <Logo />
-      <Toggle></Toggle>
+      <div className={styles.left}>
+        <Toggle></Toggle>
+      </div>
     </div>
   );
 };

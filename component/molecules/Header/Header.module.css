@@ -3,3 +3,16 @@
   display: flex;
   justify-content: space-between;
 }
+
+.left {
+  display: flex;
+  margin-right: 5.2%;
+  column-gap: 20px;
+  /* border: 1px solid red; */
+}
+
+@media screen and (min-width: 1000px) {
+  .left {
+    margin-right: 11.45%;
+  }
+}
