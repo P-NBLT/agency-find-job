@@ -1,4 +1,5 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
+import { useAgencies } from "../AgenciesProvider/AgenciesProvider";
 import { dataSet } from "../../data/data";
 
 const FilterContext = React.createContext();
@@ -13,18 +14,23 @@ export function useFilter() {
 }
 
 function FilterProvider({ children }) {
-  const [listing, setListing] = useState(dataSet);
-  const [filterListing, setFilterListing] = useState({
-    agencies: listing.agencies,
-  });
-  const [keywords, setKeywords] = useState({});
+  const agencies = useAgencies().agencies;
+  const [listing, setListing] = useState();
+  const [filterListing, setFilterListing] = useState();
+  const [keywords, setKeywords] = useState();
+
+  useEffect(() => {
+    setFilterListing({
+      agencies: agencies,
+    });
+  }, [agencies]);
 
   function handleTextInput(keyword, topic) {
     setKeywords((current) => {
       return { ...current, [topic]: keyword };
     });
   }
-  console.log(keywords);
+
   function handleCheckbox(value, topic, boolean) {
     let keywordsCopy = { ...keywords };
 
@@ -49,23 +55,23 @@ function FilterProvider({ children }) {
     name: (agency, name) => agency.name.includes(name),
     location: (agency, location) =>
       agency.city.includes(location) || agency.region.includes(location),
-    size: (agency, size) => size.includes(agency.companySize),
+    size: (agency, size) => size.includes(agency.size),
   };
 
   function submitFilterInput() {
     const keysTofilterBy = Object.keys(keywords);
-    const output = filterListing.agencies.filter((agency) => {
+    const output = agencies.filter((agency) => {
       return keysTofilterBy.every((key) => {
         const filterFunction = filterFunctions[key];
         const filterValue = keywords[key];
         return filterFunction(agency, filterValue);
       });
     });
-    setListing({ agencies: output });
+    setFilterListing({ agencies: output });
   }
 
   return (
-    <FilterContext.Provider value={listing}>
+    <FilterContext.Provider value={filterListing}>
       <FilterUpdateContext.Provider
         value={{
           submitFilterInput,

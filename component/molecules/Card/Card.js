@@ -13,7 +13,7 @@ const Card = (props) => {
     backgroundColor: darkTheme ? "var(--dark-blue)" : "white",
   };
 
-  let arrData = data.agencies;
+  let arrData = data ? data.agencies : null;
   let res = [];
   if (arrData) {
     for (let index = pages * 20; index < arrData.length; index++) {
@@ -26,7 +26,7 @@ const Card = (props) => {
             href={arrData[index].website}
             target="_blank"
           >
-            <Image img={arrData[index].eguideImageSrc} />
+            <Image img={arrData[index].logo} />
 
             <InfoCard
               label={arrData[index].name}
@@ -45,7 +45,7 @@ const Card = (props) => {
               margin="mg-l"
             />
             <InfoCard
-              label={arrData[index].companySize}
+              label={arrData[index].size}
               variant="text"
               margin="mg-l"
             />
