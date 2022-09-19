@@ -1,18 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Button, Input } from "../../atoms";
 import { useForm } from "react-hook-form";
 import styles from "./AgencyForm.module.css";
 
 const AgencyForm = (props) => {
+  const [apiResponse, setApiResponse] = useState();
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({ reValidateMode: "onSubmit" });
   const {
     register: register1,
     handleSubmit: handleSubmit1,
+    reset: reset1,
     formState: { errors: errors1 },
   } = useForm({ reValidateMode: "onSubmit" });
 
@@ -36,8 +39,16 @@ const AgencyForm = (props) => {
             method: reqType,
             body: JSON.stringify(data),
           });
-          //   const json = await res;
-          //   console.log("json", json);
+
+          if (!res.ok) {
+            alert(
+              "Bad Request! Make sure to fill the reference if you want to update the exisiting data"
+            );
+          }
+          const json = await res.json();
+          console.log("json", json);
+          reset();
+          setApiResponse(JSON.stringify(json, null, 4));
         })}
         id="postput"
       >
@@ -99,14 +110,14 @@ const AgencyForm = (props) => {
           <Input
             type="text"
             register={{
-              ...register("uptName"),
+              ...register("oldName"),
             }}
             label="Company you wish to update information"
           />
           <Input
             type="text"
             register={{
-              ...register("uptCity"),
+              ...register("oldCity"),
             }}
             label="City of the company you wish to update information"
           />
@@ -136,8 +147,18 @@ const AgencyForm = (props) => {
       {/* second form /////////////////////// */}
       <form
         className={styles.containerTwo}
-        onSubmit={handleSubmit1((data) => {
+        onSubmit={handleSubmit1(async (data) => {
           console.log(data);
+          const res = await fetch("api/agencies/agencies", {
+            method: "DELETE",
+            body: JSON.stringify(data),
+          });
+          if (!res.ok) {
+            alert("the agency you want to delete seems to not exist.");
+          }
+          const json = await res.json();
+          reset1();
+          setApiResponse(JSON.stringify(json));
         })}
         id="deleteForm"
       >
@@ -164,7 +185,6 @@ const AgencyForm = (props) => {
             variant="tertiary"
             size="small"
             type="submit"
-            // onClick={handleSubmit1}
             form="deleteForm"
             id="delete"
           >
@@ -172,6 +192,7 @@ const AgencyForm = (props) => {
           </Button>
         </div>
       </form>
+      <div>{apiResponse && <pre>{apiResponse}</pre>}</div>
     </div>
   );
 };
