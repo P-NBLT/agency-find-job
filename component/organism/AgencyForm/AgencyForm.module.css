@@ -1,0 +1,36 @@
+.containerMaster {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container {
+  margin-top: -40px;
+  max-width: 400px;
+  background-color: var(--light-violet);
+  border-radius: 6px;
+  box-shadow: 3px 4px 10px;
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
+  /* max-width: 300px; */
+  /* color: white; */
+  color: var(--dark-blue);
+  font-family: var(--font-Kumbh);
+  font-size: 20px;
+  font-weight: 600;
+  padding: 20px 50px;
+}
+
+.buttonContainer {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 50px;
+  row-gap: 30px;
+  justify-content: center;
+  background-color: var(--light-violet);
+}

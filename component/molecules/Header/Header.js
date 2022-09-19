@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styles from "./Header.module.css";
-import { Toggle, Logo } from "../../atoms/index";
+import { Toggle, Logo, Settings } from "../../atoms/index";
 
 const Header = (props) => {
   return (
@@ -9,6 +9,7 @@ const Header = (props) => {
       <Logo />
       <div className={styles.left}>
         <Toggle></Toggle>
+        <Settings />
       </div>
     </div>
   );
