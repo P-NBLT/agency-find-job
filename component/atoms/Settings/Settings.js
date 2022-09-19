@@ -23,7 +23,7 @@ const Settings = (props) => {
         <BsFillPersonFill
           style={SETTINGS_STYLE}
           className={styles.settingPic}
-          onClick={() => router.push("./login")}
+          onClick={() => router.push("./form")}
         />
       </div>
       <div>
@@ -40,9 +40,9 @@ const Settings = (props) => {
             </div>
             <div
               className={styles.settingsLogin}
-              onClick={() => router.push("./login")}
+              onClick={() => router.push("./form")}
             >
-              Login
+              Form
             </div>
           </div>
         </label>
