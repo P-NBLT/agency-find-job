@@ -10,12 +10,20 @@ const AgencyForm = (props) => {
     handleSubmit,
     formState: { errors },
   } = useForm({ reValidateMode: "onSubmit" });
+  const {
+    register: register1,
+    handleSubmit: handleSubmit1,
+    formState: { errors: errors1 },
+  } = useForm({ reValidateMode: "onSubmit" });
 
   function submitRequest(e) {
     // e.preventDefault();
     console.log(e);
   }
-  console.log(errors);
+
+  function deleteAgency() {
+    console.log(data);
+  }
 
   return (
     <div className={styles.containerMaster}>
@@ -28,10 +36,10 @@ const AgencyForm = (props) => {
             method: reqType,
             body: JSON.stringify(data),
           });
-          const json = await res;
-          console.log("json", json);
+          //   const json = await res;
+          //   console.log("json", json);
         })}
-        id="crud"
+        id="postput"
       >
         <div className={styles.formContainer}>
           <Input
@@ -84,13 +92,31 @@ const AgencyForm = (props) => {
             label="Logo of the company"
           />
           {errors.logo?.message}
+          <p>
+            If you want to change an existing agency you need to complete the
+            input below.
+          </p>
+          <Input
+            type="text"
+            register={{
+              ...register("uptName"),
+            }}
+            label="Company you wish to update information"
+          />
+          <Input
+            type="text"
+            register={{
+              ...register("uptCity"),
+            }}
+            label="City of the company you wish to update information"
+          />
         </div>
         <div className={styles.buttonContainer}>
           <Button
             variant="tertiary"
             size="small"
             type="submit"
-            form="crud"
+            form="postput"
             id="post"
             onClick={handleSubmit}
           >
@@ -100,25 +126,46 @@ const AgencyForm = (props) => {
             variant="tertiary"
             size="small"
             type="submit"
-            form="crud"
+            form="postput"
             id="put"
           >
             PUT
           </Button>
+        </div>
+      </form>
+      {/* second form /////////////////////// */}
+      <form
+        className={styles.containerTwo}
+        onSubmit={handleSubmit1((data) => {
+          console.log(data);
+        })}
+        id="deleteForm"
+      >
+        <div className={styles.formContainer}>
+          <Input
+            type="text"
+            register={{
+              ...register1("name", { required: "This feeld is required" }),
+            }}
+            label="Company you wish to delete information"
+          />
+          {errors1.name?.message}
+          <Input
+            type="text"
+            register={{
+              ...register1("city", { required: "This feeld is required" }),
+            }}
+            label="City of the company you wish to delete information"
+          />
+          {errors1.city?.message}
+        </div>
+        <div className={styles.buttonContainer}>
           <Button
             variant="tertiary"
             size="small"
             type="submit"
-            form="crud"
-            id="patch"
-          >
-            PATCH
-          </Button>
-          <Button
-            variant="tertiary"
-            size="small"
-            type="submit"
-            form="crud"
+            // onClick={handleSubmit1}
+            form="deleteForm"
             id="delete"
           >
             DELETE
