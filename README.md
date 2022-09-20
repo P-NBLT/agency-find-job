@@ -1,34 +1,43 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Digital agency searchable database
 
-## Getting Started
+---
 
-First, run the development server:
+# Goal for this project
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+1. Implement responsive design from figma 'pixel perfect'.
+2. Write reusable components.
+3. Learn how to use contentful CMS to fetch content.
+4. Static generation using Next.js for better performance.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+--- 
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+[Find out a working version here](https://static-web-with-reusable-component.netlify.app/)
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+# Table of contents
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+---
 
-## Learn More
+- [App demo](#app-demo)
+- [Used technologies and concepts](#used-technologies-and-concepts)
+- [Goal for this project](#Goal-for-this-project)
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+App demo
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Template from Frontend Mentor, and below the pixel perfect reproduction.
 
-## Deploy on Vercel
+<img width="622" alt="frontendMentor-screenShot" src="https://user-images.githubusercontent.com/98712114/191214267-7ef2bd10-62f7-4cda-bd6a-ed6ee08cb35c.png">
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+![Alt Text](/media/static-web.gif)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+# Used technologies and concepts
+---
+## 👇 Click links to see code sample in this project 👇
+
+- [Next for UI building](https://github.com/P-NBLT/static-website-project/blob/main/pages/index.js) 🐣
+
+🐣 *New technology learned during this project*
