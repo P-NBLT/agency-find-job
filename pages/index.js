@@ -11,7 +11,7 @@ import { useAgencies } from "../Context/AgenciesProvider/AgenciesProvider";
 
 export async function getServerSideProps() {
   const prisma = new PrismaClient();
-  const agencies = await prisma.agencies.findMany();
+  const agencies = await prisma.agency.findMany();
   return {
     props: {
       initialAgencies: agencies,

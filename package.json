@@ -22,6 +22,6 @@
     "prisma": "^4.3.1"
   },
   "prisma": {
-    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
+    "seed": "node prisma/seed.mjs"
   }
 }
