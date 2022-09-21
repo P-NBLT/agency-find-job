@@ -2,17 +2,23 @@
 
 ---
 
+# What this app is about.
+---
+
+[Find out the latest working version here.](https://agency-find-g8m369018-p-nblt.vercel.app/) Does not include at this the form and crud features.
+
+This application allows you to look for agencies that are hiring developers in the Netherlands. The coming version will add an authentification feature plus the possibility to interact with the database whether you want to update an agency, add a new one or, delete the one which doesn't exist anymore. Your request will be then analyzed before it gets confirmed or rejected.
+
+---
+
 # Goal for this project
 ---
 
-1. Implement responsive design from figma 'pixel perfect'.
-2. Write reusable components.
-3. Learn how to use contentful CMS to fetch content.
-4. Static generation using Next.js for better performance.
+1. Decide between callback props and useContext for my components.
+2. Build a form with React-hook-from, and design data validation with yup.
+3. Implement a database with Prisma and SQLite and connect it to the frontend interface.
 
 --- 
-
-[Find out a working version here](https://static-web-with-reusable-component.netlify.app/)
 
 # Table of contents
 
@@ -20,24 +26,23 @@
 
 - [App demo](#app-demo)
 - [Used technologies and concepts](#used-technologies-and-concepts)
-- [Goal for this project](#Goal-for-this-project)
 
 ---
 
 App demo
 ---
 
-Template from Frontend Mentor, and below the pixel perfect reproduction.
-
-<img width="622" alt="frontendMentor-screenShot" src="https://user-images.githubusercontent.com/98712114/191214267-7ef2bd10-62f7-4cda-bd6a-ed6ee08cb35c.png">
-
-![Alt Text](/media/static-web.gif)
-
+![saerchJob](https://user-images.githubusercontent.com/98712114/191301453-6a587936-1f2c-4ee9-99fb-3619c7a7e8a4.gif)
 
 # Used technologies and concepts
 ---
 ## 👇 Click links to see code sample in this project 👇
 
-- [Next for UI building](https://github.com/P-NBLT/static-website-project/blob/main/pages/index.js) 🐣
+- [Next for UI building](https://github.com/P-NBLT/static-website-project/blob/main/pages/index.js)
+- [Prisma to host and interact with the database] 🐣
+- [SQLite as the first database] 🐣
+- PostgreSQL for the futur database. Not yet implemented. 🐣
+- [React-hook-form forthe form] 🐣
+- [Yup for data validation (works with the form)] 🐣
 
 🐣 *New technology learned during this project*
