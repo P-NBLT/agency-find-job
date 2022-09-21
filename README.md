@@ -5,7 +5,7 @@
 # What this app is about.
 ---
 
-[Find out the latest working version here.](https://agency-find-g8m369018-p-nblt.vercel.app/) Does not include at this the form and crud features.
+[Find out the latest working version here.](https://agency-find-g8m369018-p-nblt.vercel.app/) For now it doesn't include the form and the crud features.
 
 This application allows you to look for agencies that are hiring developers in the Netherlands. The coming version will add an authentification feature plus the possibility to interact with the database whether you want to update an agency, add a new one or, delete the one which doesn't exist anymore. Your request will be then analyzed before it gets confirmed or rejected.
 
