@@ -1,4 +1,4 @@
-import { dataSet } from "../data/data.js";
+import { dataSet } from "./data/data.mjs";
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
@@ -12,8 +12,14 @@ const dataAgency = dataSet.agencies.map((agency) => ({
 }));
 
 async function main() {
+  // console.log(dataAgency);
+  // const createMany = await prisma.agency.createMany({
+  //   data: dataSet.agencies,
+  //   skipDuplicates: true,
+  // });
+
   for (let agency of dataAgency) {
-    await prisma.agencies.create({
+    await prisma.agency.create({
       data: agency,
     });
   }

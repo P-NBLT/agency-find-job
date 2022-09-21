@@ -1,6 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
 import { useAgencies } from "../AgenciesProvider/AgenciesProvider";
-import { dataSet } from "../../data/data";
 
 const FilterContext = React.createContext();
 const FilterUpdateContext = React.createContext();
