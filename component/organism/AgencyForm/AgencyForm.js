@@ -55,51 +55,37 @@ const AgencyForm = (props) => {
         <div className={styles.formContainer}>
           <Input
             type="text"
-            register={{
-              ...register("name", { required: "This is field is required" }),
-            }}
+            {...register("name", { required: "This is field is required" })}
             label="Company name"
           />
           {errors.name?.message}
           <Input
             type="text"
-            register={{
-              ...register("city", {
-                required: "This is field is required",
-              }),
-            }}
+            {...register("city", { required: "This i field is required" })}
             label="City"
           />
           {errors.city?.message}
           <Input
             type="text"
-            register={{
-              ...register("region", { required: "This is field is required" }),
-            }}
+            {...register("region", { required: "This is field is required" })}
             label="Region"
           />
           {errors.region?.message}
           <Input
             type="text"
-            register={{
-              ...register("size", { required: "This is field is required" }),
-            }}
+            {...register("size", { required: "This is field is required" })}
             label="Company size"
           />
           {errors.size?.message}
           <Input
             type="text"
-            register={{
-              ...register("website", { required: "This is field is required" }),
-            }}
+            {...register("website", { required: "This is field is required" })}
             label="Website"
           />
           {errors.website?.message}
           <Input
             type="text"
-            register={{
-              ...register("logo", { required: "This is field is required" }),
-            }}
+            {...register("logo", { required: "This is field is required" })}
             label="Logo of the company"
           />
           {errors.logo?.message}
@@ -109,16 +95,12 @@ const AgencyForm = (props) => {
           </p>
           <Input
             type="text"
-            register={{
-              ...register("oldName"),
-            }}
+            {...register("oldName")}
             label="Company you wish to update information"
           />
           <Input
             type="text"
-            register={{
-              ...register("oldCity"),
-            }}
+            {...register("oldCity")}
             label="City of the company you wish to update information"
           />
         </div>
@@ -165,17 +147,13 @@ const AgencyForm = (props) => {
         <div className={styles.formContainer}>
           <Input
             type="text"
-            register={{
-              ...register1("name", { required: "This feeld is required" }),
-            }}
+            {...register1("name", { required: "This feeld is required" })}
             label="Company you wish to delete information"
           />
           {errors1.name?.message}
           <Input
             type="text"
-            register={{
-              ...register1("city", { required: "This feeld is required" }),
-            }}
+            {...register1("city", { required: "This feeld is required" })}
             label="City of the company you wish to delete information"
           />
           {errors1.city?.message}
