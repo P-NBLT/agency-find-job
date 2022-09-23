@@ -4,54 +4,10 @@ import { Button, Input } from "../../atoms";
 import { useForm } from "react-hook-form";
 import styles from "./AgencyForm.module.css";
 
-const AgencyForm = (props) => {
-  const [apiResponse, setApiResponse] = useState();
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm({ reValidateMode: "onSubmit" });
-  const {
-    register: register1,
-    handleSubmit: handleSubmit1,
-    reset: reset1,
-    formState: { errors: errors1 },
-  } = useForm({ reValidateMode: "onSubmit" });
-
-  function submitRequest(e) {
-    // e.preventDefault();
-    console.log(e);
-  }
-
-  function deleteAgency() {
-    console.log(data);
-  }
-
+const AgencyForm = ({ onSubmit, register, errors, feedback, ...props }) => {
   return (
     <div className={styles.containerMaster}>
-      <form
-        className={styles.container}
-        onSubmit={handleSubmit(async (data, e) => {
-          const reqType = e.nativeEvent.submitter.innerHTML;
-          console.log("data", data);
-          const res = await fetch("api/agencies/agencies", {
-            method: reqType,
-            body: JSON.stringify(data),
-          });
-
-          if (!res.ok) {
-            alert(
-              "Bad Request! Make sure to fill the reference if you want to update the exisiting data"
-            );
-          }
-          const json = await res.json();
-          console.log("json", json);
-          reset();
-          setApiResponse(JSON.stringify(json, null, 4));
-        })}
-        id="postput"
-      >
+      <form className={styles.container} onSubmit={onSubmit} id="postput">
         <div className={styles.formContainer}>
           <Input
             type="text"
@@ -103,24 +59,6 @@ const AgencyForm = (props) => {
             label="Logo of the company"
           />
           {errors.logo?.message}
-          <p>
-            If you want to change an existing agency you need to complete the
-            input below.
-          </p>
-          <Input
-            type="text"
-            register={{
-              ...register("oldName"),
-            }}
-            label="Company you wish to update information"
-          />
-          <Input
-            type="text"
-            register={{
-              ...register("oldCity"),
-            }}
-            label="City of the company you wish to update information"
-          />
         </div>
         <div className={styles.buttonContainer}>
           <Button
@@ -129,70 +67,12 @@ const AgencyForm = (props) => {
             type="submit"
             form="postput"
             id="post"
-            onClick={handleSubmit}
           >
             POST
           </Button>
-          <Button
-            variant="tertiary"
-            size="small"
-            type="submit"
-            form="postput"
-            id="put"
-          >
-            PUT
-          </Button>
         </div>
       </form>
-      {/* second form /////////////////////// */}
-      <form
-        className={styles.containerTwo}
-        onSubmit={handleSubmit1(async (data) => {
-          console.log(data);
-          const res = await fetch("api/agencies/agencies", {
-            method: "DELETE",
-            body: JSON.stringify(data),
-          });
-          if (!res.ok) {
-            alert("the agency you want to delete seems to not exist.");
-          }
-          const json = await res.json();
-          reset1();
-          setApiResponse(JSON.stringify(json));
-        })}
-        id="deleteForm"
-      >
-        <div className={styles.formContainer}>
-          <Input
-            type="text"
-            register={{
-              ...register1("name", { required: "This feeld is required" }),
-            }}
-            label="Company you wish to delete information"
-          />
-          {errors1.name?.message}
-          <Input
-            type="text"
-            register={{
-              ...register1("city", { required: "This feeld is required" }),
-            }}
-            label="City of the company you wish to delete information"
-          />
-          {errors1.city?.message}
-        </div>
-        <div className={styles.buttonContainer}>
-          <Button
-            variant="tertiary"
-            size="small"
-            type="submit"
-            form="deleteForm"
-            id="delete"
-          >
-            DELETE
-          </Button>
-        </div>
-      </form>
-      <div>{apiResponse && <pre>{apiResponse}</pre>}</div>
+      <div>{feedback && <pre>{feedback}</pre>}</div>
     </div>
   );
 };

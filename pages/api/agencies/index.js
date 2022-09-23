@@ -12,7 +12,7 @@ export default async (req, res) => {
     delete data.oldName;
     delete data.oldCity;
     console.log(data);
-    const savedAgency = await prisma.agencies.create({
+    const savedAgency = await prisma.agency.create({
       data: data,
     });
 
