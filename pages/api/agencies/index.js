@@ -1,5 +1,4 @@
 import { PrismaClient } from "@prisma/client";
-import { BsEraser } from "react-icons/bs";
 
 const prisma = new PrismaClient();
 

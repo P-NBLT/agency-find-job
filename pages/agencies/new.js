@@ -4,9 +4,12 @@ import { AgencyForm } from "../../component/organism";
 import { Header } from "../../component/molecules";
 import styles from "../../styles/Form.module.css";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/router";
 
 const form = (props) => {
   const [apiResponse, setApiResponse] = useState();
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -18,6 +21,7 @@ const form = (props) => {
     console.log(data);
     // const reqType = e.nativeEvent.submitter.innerHTML;
     // console.log("data", data);
+    setIsLoading(true);
     const res = await fetch("../api/agencies", {
       method: "POST",
       body: JSON.stringify(data),
@@ -29,23 +33,25 @@ const form = (props) => {
         "Bad Request! Make sure to fill the reference if you want to update the exisiting data"
       );
     }
-    const json = await res.json();
-    console.log("json", json);
-    reset();
-    setApiResponse(JSON.stringify(json, null, 4));
+    router.push("/agencies/success");
   });
 
   return (
     <>
-      <div className={styles.body}>
-        <Header />
-        <AgencyForm
-          onSubmit={onSubmit}
-          register={register}
-          errors={errors}
-          feedback={apiResponse}
-        />
-      </div>
+      {!isLoading ? (
+        <div className={styles.body}>
+          <Header />
+          <AgencyForm
+            onSubmit={onSubmit}
+            register={register}
+            errors={errors}
+            feedback={apiResponse}
+            buttonLabel="Add Agency"
+          />
+        </div>
+      ) : (
+        <p>Loading...</p>
+      )}
     </>
   );
 };

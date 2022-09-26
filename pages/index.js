@@ -20,14 +20,14 @@ export async function getServerSideProps() {
 }
 
 export default function Home({ initialAgencies }) {
-  const getAcencies = useAgencies().handleAgenciesFromServer;
+  const getAgencies = useAgencies().handleAgenciesFromServer;
   const darkTheme = useTheme();
   const BODY_STYLE = {
     backgroundColor: darkTheme ? "var(--midnight)" : "#F2F2F2",
   };
 
   useEffect(() => {
-    getAcencies(initialAgencies);
+    getAgencies(initialAgencies);
   }, [initialAgencies]);
 
   return (
@@ -41,11 +41,11 @@ export default function Home({ initialAgencies }) {
       <Header />
       <ModalProvider>
         <FilterNav />
-      </ModalProvider>
 
-      <PaginationProvider>
-        <ContentResult />
-      </PaginationProvider>
+        <PaginationProvider>
+          <ContentResult />
+        </PaginationProvider>
+      </ModalProvider>
 
       <div className={styles.paginationButton}></div>
     </div>

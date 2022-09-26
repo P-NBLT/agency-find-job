@@ -4,7 +4,15 @@ import { Button, Input } from "../../atoms";
 import { useForm } from "react-hook-form";
 import styles from "./AgencyForm.module.css";
 
-const AgencyForm = ({ onSubmit, register, errors, feedback, ...props }) => {
+const AgencyForm = ({
+  onSubmit,
+  register,
+  errors,
+  feedback,
+  buttonLabel,
+  ...props
+}) => {
+  console.log("register");
   return (
     <div className={styles.containerMaster}>
       <form className={styles.container} onSubmit={onSubmit} id="postput">
@@ -68,7 +76,7 @@ const AgencyForm = ({ onSubmit, register, errors, feedback, ...props }) => {
             form="postput"
             id="post"
           >
-            POST
+            {buttonLabel}
           </Button>
         </div>
       </form>

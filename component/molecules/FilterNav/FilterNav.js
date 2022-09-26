@@ -17,6 +17,7 @@ const FilterNav = ({ children, variant, ...props }) => {
   const darkTheme = useTheme();
   const filter = useFilter();
   const modal = useModal();
+  const modalId = "filterOptions";
 
   function sendFilterInput(e) {
     if (e.target.id == "modal") {
@@ -83,7 +84,7 @@ const FilterNav = ({ children, variant, ...props }) => {
             variant="filterOption"
             size="mediumPlus"
             theme={darkTheme}
-            onClick={() => modal.toggleModal()}
+            onClick={() => modal.toggleModal(modalId)}
           >
             <FiFilter className={styles.filterPic} /> More Options
           </Button>
@@ -104,7 +105,7 @@ const FilterNav = ({ children, variant, ...props }) => {
           <Button
             variant="fitContent"
             style={{ marginRight: "24px" }}
-            onClick={() => modal.toggleModal()}
+            onClick={() => modal.toggleModal(modalId)}
           >
             <FiFilter className={styles.filterPic} style={BACKGROUND_FILTER} />
           </Button>

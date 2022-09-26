@@ -9,13 +9,15 @@ export function useModal() {
 
 function ModalProvider({ children }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [modalId, setModalId] = useState();
 
-  function toggleModal() {
+  function toggleModal(id) {
+    setModalId(id);
     setIsOpen((prev) => !prev);
   }
 
   return (
-    <ModalContext.Provider value={{ isOpen, toggleModal }}>
+    <ModalContext.Provider value={{ isOpen, toggleModal, modalId }}>
       <ModalFilterOptions /> {children}
     </ModalContext.Provider>
   );
