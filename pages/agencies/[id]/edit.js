@@ -23,7 +23,7 @@ export async function getServerSideProps(context) {
   };
 }
 
-function edit({ agency }) {
+function Edit({ agency }) {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const {
@@ -83,4 +83,4 @@ function edit({ agency }) {
 
 edit.propTypes = {};
 
-export default edit;
+export default Edit;

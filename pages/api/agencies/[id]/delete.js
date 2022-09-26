@@ -15,6 +15,7 @@ export default async (req, res) => {
     });
     const updatedAgenciesListing = await prisma.agency.findMany();
     console.log(updatedAgenciesListing);
+
     res.json(updatedAgenciesListing);
   }
 };

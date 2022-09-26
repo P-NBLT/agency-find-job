@@ -1,6 +1,6 @@
 import { Button } from "../../component/atoms";
 import { useRouter } from "next/router";
-function success() {
+function Success() {
   const router = useRouter();
   return (
     <div>
@@ -17,4 +17,4 @@ function success() {
   );
 }
 
-export default success;
+export default Success;

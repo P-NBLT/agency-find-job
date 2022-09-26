@@ -43,9 +43,12 @@ const Card = (props) => {
       method: "DELETE",
     });
     if (res.ok) {
-      const agencyListing = await res.json();
+      //const agencyListing = await res.json();
       modal.toggleModal(modalId);
-      getAgencies(agencyListing);
+      // getAgencies(agencyListing);
+      const agencyListing = await fetch(`api/agencies/`, { method: "GET" });
+      if (agencyListing.ok) {
+      }
       filter.submitFilterInput();
     }
   }

@@ -6,7 +6,7 @@ import styles from "../../styles/Form.module.css";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 
-const form = (props) => {
+const Form = (props) => {
   const [apiResponse, setApiResponse] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
@@ -58,4 +58,4 @@ const form = (props) => {
 
 form.propTypes = {};
 
-export default form;
+export default Form;
