@@ -5,7 +5,7 @@ import styles from "./ModalDeleteAgency.module.css";
 import { useModal } from "../../../../Context/ModalProvider/ModalProvider";
 import { useTheme } from "../../../../Context/ThemeProvider/ThemeProvider";
 
-const ModalDeleteAgency = ({ children, ...props }) => {
+const ModalDeleteAgency = ({ children, id, ...props }) => {
   const isOpen = useModal().isOpen;
   const toggle = useModal().toggleModal;
   const modalId = useModal().modalId;
