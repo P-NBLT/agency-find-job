@@ -9,17 +9,13 @@ export function useAgencies() {
 
 function AgenciesProvider({ children }) {
   const [agencies, setAgencies] = useState();
-  const [agencyCardId, setAgencyCardId] = useState();
+
   function handleAgenciesFromServer(serverData) {
     setAgencies(serverData);
   }
-  function handleCardId(id) {
-    setAgencyCardId(id);
-  }
+
   return (
-    <AgenciesContext.Provider
-      value={{ agencies, handleAgenciesFromServer, handleCardId, agencyCardId }}
-    >
+    <AgenciesContext.Provider value={{ agencies, handleAgenciesFromServer }}>
       {children}
     </AgenciesContext.Provider>
   );

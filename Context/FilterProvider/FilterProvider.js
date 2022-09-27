@@ -57,8 +57,20 @@ function FilterProvider({ children }) {
     size: (agency, size) => size.includes(agency.size),
   };
 
-  function submitFilterInput() {
+  function submitFilterInput(optional) {
     const keysTofilterBy = Object.keys(keywords);
+    if (optional) {
+      const output = optional.filter((agency) => {
+        return keysTofilterBy.every((key) => {
+          const filterFunction = filterFunctions[key];
+          const filterValue = keywords[key];
+          return filterFunction(agency, filterValue);
+        });
+      });
+      return setFilterListing({ agencies: output });
+    }
+    console.log("agencies in the function", agencies);
+
     const output = agencies.filter((agency) => {
       return keysTofilterBy.every((key) => {
         const filterFunction = filterFunctions[key];
@@ -68,7 +80,13 @@ function FilterProvider({ children }) {
     });
     setFilterListing({ agencies: output });
   }
-
+  console.log(
+    keywords,
+    "filterlisting",
+    filterListing,
+    "agencies component scope",
+    agencies
+  );
   return (
     <FilterContext.Provider value={filterListing}>
       <FilterUpdateContext.Provider

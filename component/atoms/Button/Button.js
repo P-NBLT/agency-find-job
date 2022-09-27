@@ -13,7 +13,7 @@ const Button = ({
   ...props
 }) => {
   const DARKTHEME_STYLE = {};
-
+  console.log("props.id", props.id);
   if (theme) {
     DARKTHEME_STYLE.color = theme ? "white" : "var(--dark-blue)";
   }

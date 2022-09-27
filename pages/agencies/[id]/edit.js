@@ -81,6 +81,6 @@ function Edit({ agency }) {
   );
 }
 
-edit.propTypes = {};
+Edit.propTypes = {};
 
 export default Edit;

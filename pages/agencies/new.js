@@ -56,6 +56,6 @@ const Form = (props) => {
   );
 };
 
-form.propTypes = {};
+Form.propTypes = {};
 
 export default Form;

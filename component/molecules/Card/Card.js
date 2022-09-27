@@ -22,7 +22,8 @@ const Card = (props) => {
   const filter = useFilter();
   const modal = useModal();
   const agencies = useAgencies();
-  const agencyId = useAgencies().agencyCardId;
+  const setModalDeleteAgencyId = useModal().handleModalDeleteAgencyId;
+  const modalDeleteAgencyId = useModal().modalDeleteAgencyId;
   const getAgencies = useAgencies().handleAgenciesFromServer;
   const modalId = "delete";
   const CARD_STYLE = {
@@ -33,7 +34,7 @@ const Card = (props) => {
     const id = e.target.id;
     console.log("the idddd =", id);
     modal.toggleModal(modalId);
-    agencies.handleCardId(id);
+    setModalDeleteAgencyId(id);
   }
 
   async function sendDeleteRequest(e) {
@@ -45,16 +46,19 @@ const Card = (props) => {
     if (res.ok) {
       //const agencyListing = await res.json();
       modal.toggleModal(modalId);
-      // getAgencies(agencyListing);
-      const agencyListing = await fetch(`api/agencies/`, { method: "GET" });
+      const agencyListing = await fetch(`../../api/agencies/`, {
+        method: "GET",
+      });
       if (agencyListing.ok) {
+        const renderedAgencies = await agencyListing.json();
+        getAgencies(renderedAgencies);
+        setTimeout(() => filter.submitFilterInput(renderedAgencies), 1);
       }
-      filter.submitFilterInput();
     }
   }
 
   let arrData = data ? data.agencies : null;
-  console.log(arrData);
+
   let res = [];
   if (arrData) {
     for (let index = pages * 20; index < arrData.length; index++) {
@@ -113,7 +117,7 @@ const Card = (props) => {
   return (
     <>
       <ModalDeleteAgency>
-        <Button onClick={sendDeleteRequest} id={agencyId}>
+        <Button onClick={sendDeleteRequest} id={modalDeleteAgencyId}>
           Yes
         </Button>
         <Button>Ooops.. no</Button>
