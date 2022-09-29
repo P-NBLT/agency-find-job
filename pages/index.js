@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import styles from "../styles/Home.module.css";
 import Head from "next/head";
 import { FilterNav, Header } from "../component/molecules";
@@ -25,7 +25,7 @@ export default function Home({ initialAgencies }) {
   const BODY_STYLE = {
     backgroundColor: darkTheme ? "var(--midnight)" : "#F2F2F2",
   };
-  console.log("index.js");
+
   useEffect(() => {
     getAgencies(initialAgencies);
   }, []);

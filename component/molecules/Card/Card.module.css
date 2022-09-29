@@ -5,11 +5,6 @@
   margin: 57px 24px 32px 24px;
 }
 
-.card {
-  border-radius: 6px;
-  text-decoration: none;
-}
-
 .card:hover {
   cursor: pointer;
 }
@@ -18,8 +13,12 @@
   display: flex;
   justify-content: flex-end;
   margin-right: 30px;
-  margin-bottom: 15px;
+  padding-bottom: 15px;
   column-gap: 10px;
+}
+
+.notvisible {
+  display: none;
 }
 
 @media screen and (min-width: 630px) {

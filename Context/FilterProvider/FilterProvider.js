@@ -57,21 +57,16 @@ function FilterProvider({ children }) {
     size: (agency, size) => size.includes(agency.size),
   };
 
-  function submitFilterInput(optional) {
+  // this function may need in some case a param listingfromServer when the api return an update of the db.
+  function submitFilterInput(listingfromServer) {
     const keysTofilterBy = Object.keys(keywords);
-    if (optional) {
-      const output = optional.filter((agency) => {
-        return keysTofilterBy.every((key) => {
-          const filterFunction = filterFunctions[key];
-          const filterValue = keywords[key];
-          return filterFunction(agency, filterValue);
-        });
-      });
-      return setFilterListing({ agencies: output });
+    let dataListing;
+    if (listingfromServer) {
+      dataListing = listingfromServer;
+    } else {
+      dataListing = agencies;
     }
-    console.log("agencies in the function", agencies);
-
-    const output = agencies.filter((agency) => {
+    const output = dataListing.filter((agency) => {
       return keysTofilterBy.every((key) => {
         const filterFunction = filterFunctions[key];
         const filterValue = keywords[key];
@@ -80,13 +75,7 @@ function FilterProvider({ children }) {
     });
     setFilterListing({ agencies: output });
   }
-  console.log(
-    keywords,
-    "filterlisting",
-    filterListing,
-    "agencies component scope",
-    agencies
-  );
+
   return (
     <FilterContext.Provider value={filterListing}>
       <FilterUpdateContext.Provider

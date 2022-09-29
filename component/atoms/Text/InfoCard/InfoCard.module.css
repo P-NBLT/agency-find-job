@@ -13,12 +13,14 @@
   line-height: 1.55em;
 }
 
-.city {
+.website {
   font-family: var(--font-Kumbh);
   font-size: 0.875rem;
   font-weight: 700;
   line-height: 1.085em;
   color: var(--violet);
+  padding-bottom: 30px;
+  margin: 0;
 }
 
 .mg-l {

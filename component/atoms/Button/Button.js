@@ -10,16 +10,17 @@ const Button = ({
   size,
   margin,
   theme,
+  padding,
   ...props
 }) => {
   const DARKTHEME_STYLE = {};
-  console.log("props.id", props.id);
+
   if (theme) {
     DARKTHEME_STYLE.color = theme ? "white" : "var(--dark-blue)";
   }
   let classNames;
   if (props.theme) variant = "dark";
-  classNames = classNameBuilderHelper([variant, size, margin], styles);
+  classNames = classNameBuilderHelper([variant, size, margin, padding], styles);
   return (
     <button
       {...props}

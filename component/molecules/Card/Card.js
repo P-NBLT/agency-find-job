@@ -15,115 +15,49 @@ import { useAgencies } from "../../../Context/AgenciesProvider/AgenciesProvider"
 
 const Card = (props) => {
   const darkTheme = useTheme();
-  const pages = usePagination().pages;
-  const cards = usePagination().cards;
   const router = useRouter();
-  const data = useData();
-  const filter = useFilter();
   const modal = useModal();
-  const agencies = useAgencies();
-  const setModalDeleteAgencyId = useModal().handleModalDeleteAgencyId;
-  const modalDeleteAgencyId = useModal().modalDeleteAgencyId;
-  const getAgencies = useAgencies().handleAgenciesFromServer;
   const modalId = "delete";
   const CARD_STYLE = {
     backgroundColor: darkTheme ? "var(--dark-blue)" : "white",
+    borderRadius: "6px",
   };
 
-  function handleModal(e) {
-    const id = e.target.id;
-    console.log("the idddd =", id);
-    modal.toggleModal(modalId);
-    setModalDeleteAgencyId(id);
-  }
+  const BUTTON_STYLE = {
+    color: darkTheme ? "var(--dark-grey)" : "black",
+  };
 
-  async function sendDeleteRequest(e) {
+  function handleIdForHandleModal(e) {
     const id = e.target.id;
-    // console.log("from the aasync the id is =", id);
-    const res = await fetch(`../../api/agencies/${id}/delete`, {
-      method: "DELETE",
-    });
-    if (res.ok) {
-      //const agencyListing = await res.json();
-      modal.toggleModal(modalId);
-      const agencyListing = await fetch(`../../api/agencies/`, {
-        method: "GET",
-      });
-      if (agencyListing.ok) {
-        const renderedAgencies = await agencyListing.json();
-        getAgencies(renderedAgencies);
-        setTimeout(() => filter.submitFilterInput(renderedAgencies), 1);
-      }
+    if (id) {
+      props.fun.handleModal(id);
     }
   }
-
-  let arrData = data ? data.agencies : null;
-
-  let res = [];
-  if (arrData) {
-    for (let index = pages * 20; index < arrData.length; index++) {
-      if (index < 20 * (cards + 1)) {
-        res.push(
-          <div
-            key={arrData[index].name}
-            className={styles.card}
-            style={CARD_STYLE}
-          >
-            <a href={arrData[index].website} target="_blank">
-              <Image img={arrData[index].logo} />
-
-              <InfoCard
-                label={arrData[index].name}
-                variant="text"
-                margin="mg-t-l"
-              />
-              <InfoCard
-                label={arrData[index].region}
-                variant="text"
-                margin="mg-l"
-              />
-
-              <InfoCard
-                label={arrData[index].city}
-                variant="text"
-                margin="mg-l"
-              />
-              <InfoCard
-                label={arrData[index].size}
-                variant="text"
-                margin="mg-l"
-              />
-              <InfoCard
-                label={arrData[index].website}
-                variant="city"
-                margin="mg-t-b-l"
-              />
-            </a>
-            <div className={styles.cardButton}>
-              <FiEdit
-                id={arrData[index].id}
-                onClick={() =>
-                  router.push(`/agencies/${arrData[index].id}/edit`)
-                }
-              />
-              <BsTrash id={arrData[index].id} onClick={handleModal} />
-            </div>
-          </div>
-        );
-      }
-    }
-  } else res = <p>Error</p>;
 
   return (
-    <>
-      <ModalDeleteAgency>
-        <Button onClick={sendDeleteRequest} id={modalDeleteAgencyId}>
-          Yes
-        </Button>
-        <Button>Ooops.. no</Button>
-      </ModalDeleteAgency>
-      <div className={styles.cardContainer}>{res}</div>
-    </>
+    <div style={CARD_STYLE}>
+      <a href={props.href} target="_blank" style={{ textDecoration: "none" }}>
+        <Image img={props.img} />
+
+        <InfoCard label={props.labelName} variant="text" margin="mg-t-l" />
+        <InfoCard label={props.labelRegion} variant="text" margin="mg-l" />
+
+        <InfoCard label={props.labelCity} variant="text" margin="mg-l" />
+        <InfoCard label={props.labelSize} variant="text" margin="mg-l" />
+        <InfoCard label={props.labelWebsite} variant="website" margin="mg-l" />
+      </a>
+      <div
+        className={`${styles.cardButton} ${styles[props.isValid]}`}
+        id={props.id}
+        style={BUTTON_STYLE}
+      >
+        <FiEdit
+          id={props.id}
+          onClick={() => router.push(`/agencies/${props.id}/edit`)}
+        />
+        <BsTrash id={props.id} onClick={handleIdForHandleModal} />
+      </div>
+    </div>
   );
 };
 
