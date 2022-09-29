@@ -9,6 +9,7 @@ export function useAgencies() {
 
 function AgenciesProvider({ children }) {
   const [agencies, setAgencies] = useState();
+
   function handleAgenciesFromServer(serverData) {
     setAgencies(serverData);
   }

@@ -57,9 +57,16 @@ function FilterProvider({ children }) {
     size: (agency, size) => size.includes(agency.size),
   };
 
-  function submitFilterInput() {
+  // this function may need in some case a param listingfromServer when the api return an update of the db.
+  function submitFilterInput(listingfromServer) {
     const keysTofilterBy = Object.keys(keywords);
-    const output = agencies.filter((agency) => {
+    let dataListing;
+    if (listingfromServer) {
+      dataListing = listingfromServer;
+    } else {
+      dataListing = agencies;
+    }
+    const output = dataListing.filter((agency) => {
       return keysTofilterBy.every((key) => {
         const filterFunction = filterFunctions[key];
         const filterValue = keywords[key];

@@ -1,69 +1,63 @@
 import styles from "./Card.module.css";
-import { InfoCard, Image } from "../../atoms";
+import { InfoCard, Image, Button } from "../../atoms";
 import { useTheme } from "../../../Context/ThemeProvider/ThemeProvider";
-import { useData } from "../../../Context/FilterProvider/FilterProvider";
+import {
+  useData,
+  useFilter,
+} from "../../../Context/FilterProvider/FilterProvider";
 import { usePagination } from "../../../Context/PaginationProvider/PaginationProvider";
+import { FiEdit } from "react-icons/fi";
+import { BsTrash } from "react-icons/bs";
+import { useRouter } from "next/router";
+import { ModalDeleteAgency } from "..";
+import { useModal } from "../../../Context/ModalProvider/ModalProvider";
+import { useAgencies } from "../../../Context/AgenciesProvider/AgenciesProvider";
+
 const Card = (props) => {
   const darkTheme = useTheme();
-  const pages = usePagination().pages;
-  const cards = usePagination().cards;
-
-  const data = useData();
+  const router = useRouter();
+  const modal = useModal();
+  const modalId = "delete";
   const CARD_STYLE = {
     backgroundColor: darkTheme ? "var(--dark-blue)" : "white",
+    borderRadius: "6px",
   };
 
-  let arrData = data ? data.agencies : null;
-  let res = [];
-  if (arrData) {
-    for (let index = pages * 20; index < arrData.length; index++) {
-      if (index < 20 * (cards + 1)) {
-        res.push(
-          <a
-            key={arrData[index].name}
-            className={styles.card}
-            style={CARD_STYLE}
-            href={arrData[index].website}
-            target="_blank"
-          >
-            <Image img={arrData[index].logo} />
+  const BUTTON_STYLE = {
+    color: darkTheme ? "var(--dark-grey)" : "black",
+  };
 
-            <InfoCard
-              label={arrData[index].name}
-              variant="text"
-              margin="mg-t-l"
-            />
-            <InfoCard
-              label={arrData[index].region}
-              variant="text"
-              margin="mg-l"
-            />
-
-            <InfoCard
-              label={arrData[index].city}
-              variant="text"
-              margin="mg-l"
-            />
-            <InfoCard
-              label={arrData[index].size}
-              variant="text"
-              margin="mg-l"
-            />
-            <InfoCard
-              label={arrData[index].website}
-              variant="city"
-              margin="mg-t-b-l"
-            />
-          </a>
-        );
-      }
+  function handleIdForHandleModal(e) {
+    const id = e.target.id;
+    if (id) {
+      props.fun.handleModal(id);
     }
-  } else res = <p>Error</p>;
+  }
 
   return (
-    <>
-      <div className={styles.cardContainer}>{res}</div>
-    </>
+    <div style={CARD_STYLE}>
+      <a href={props.href} target="_blank" style={{ textDecoration: "none" }}>
+        <Image img={props.img} />
+
+        <InfoCard label={props.labelName} variant="text" margin="mg-t-l" />
+        <InfoCard label={props.labelRegion} variant="text" margin="mg-l" />
+
+        <InfoCard label={props.labelCity} variant="text" margin="mg-l" />
+        <InfoCard label={props.labelSize} variant="text" margin="mg-l" />
+        <InfoCard label={props.labelWebsite} variant="website" margin="mg-l" />
+      </a>
+      <div
+        className={`${styles.cardButton} ${styles[props.isValid]}`}
+        id={props.id}
+        style={BUTTON_STYLE}
+      >
+        <FiEdit
+          id={props.id}
+          onClick={() => router.push(`/agencies/${props.id}/edit`)}
+        />
+        <BsTrash id={props.id} onClick={handleIdForHandleModal} />
+      </div>
+    </div>
   );
 };
 

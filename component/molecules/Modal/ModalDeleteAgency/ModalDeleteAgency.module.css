@@ -1,0 +1,43 @@
+.outerDiv {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+}
+
+.innerDiv {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  width: 80vw;
+  padding: 30px 0 40px 0;
+  border-radius: 6px;
+  box-shadow: 1px 1px 10px;
+}
+
+.radioContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  column-gap: 20px;
+  row-gap: 30px;
+  padding: 0 20px;
+  margin: 40px 40px 40px 40px;
+}
+
+.closeModal {
+  text-align: right;
+  margin-top: -20px;
+  margin-right: 20px;
+}
+
+.childrenContainer {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+  align-items: center;
+}
