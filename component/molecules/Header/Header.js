@@ -1,26 +1,20 @@
 import React from "react";
-import PropTypes from "prop-types";
 import styles from "./Header.module.css";
-import { Toggle, Logo, Settings, LoginLogout } from "../../atoms/index";
+import { Toggle, Logo, LoginLogout } from "../../atoms/index";
 import { useLogin } from "../../../Context/LoginProvider/LoginProvider";
-import Link from "next/link";
+import { useRouter } from "next/router";
 
 const Header = (props) => {
-  const login = useLogin().isLogin;
-  console.log("is login", login);
+  const logoutContext = useLogin().loginLogout;
+  const router = useRouter();
+  const pathName = router.pathname;
 
   async function logout() {
-    const res = await fetch("api/auth/logout");
+    const res = await fetch("../../api/auth/logout");
     const json = await res.json();
+    logoutContext();
+    if (pathName !== "/") router.push("/");
   }
-
-  const credentials = !login ? (
-    <Link href="/check-in">
-      <p>Login</p>
-    </Link>
-  ) : (
-    <p onClick={logout}>Logout</p>
-  );
 
   return (
     <div className={styles.header}>

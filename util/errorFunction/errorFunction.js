@@ -55,7 +55,6 @@ function authenticateError(err) {
 
 function authenticateErrorResponse(error, res) {
   if (error == "Error: A001") {
-    console.log("I am being logged");
     return res.status(401).json({
       name: "Bad request",
       path: "headers: {authorization}",

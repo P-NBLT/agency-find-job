@@ -1,15 +1,14 @@
-import { PrismaClient } from "@prisma/client";
+import prisma from "../../../../util/prisma";
 import {
   extractCookie,
   verifyToken,
 } from "../../../../util/Middleware/middleWare";
 
-const prisma = new PrismaClient();
 export default async (req, res) => {
   const { method, body, headers } = req;
   const data = JSON.parse(body);
   const { id } = req.query;
-  console.log("data", data);
+
   const isVerified = verifyToken(extractCookie(headers));
   if (!isVerified) res.status(401).json({ message: "User not authenticated." });
 

@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import prisma from "../../../util/prisma";
 import signupSchema from "../../../validation/signup";
 import bcrypt from "bcrypt";
 import {
@@ -9,7 +9,6 @@ import {
   dataBaseErrorResponse,
 } from "../../../util/errorFunction/errorFunction";
 
-const prisma = new PrismaClient();
 export default async function handler(req, res) {
   const { body, method } = req;
   const data = JSON.parse(body);
@@ -40,13 +39,6 @@ export default async function handler(req, res) {
 
     return res.status(201).json(data);
   } catch (err) {
-    console.log(
-      "errorror",
-      Object.entries(err),
-      databaseError(err),
-      validationErrorResponse(err, res),
-      "erwbfiergbifugwer blalalala"
-    );
     if (databaseError(err)) return dataBaseErrorResponse(err, res);
     if (validationError(err)) return validationErrorResponse(err, res);
     return unknownError(err);

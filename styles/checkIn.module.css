@@ -1,7 +1,5 @@
 .checkinContainerMaster {
   min-height: 100vh;
-  border: 1px solid red;
-  background-color: #f2f2f2;
   font-family: var(--font-Kumbh);
   display: flex;
   flex-direction: column;

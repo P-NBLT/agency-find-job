@@ -6,11 +6,10 @@ import { useTheme } from "../Context/ThemeProvider/ThemeProvider";
 import ModalProvider from "../Context/ModalProvider/ModalProvider";
 import PaginationProvider from "../Context/PaginationProvider/PaginationProvider";
 import { ContentResult } from "../component/organism";
-import { PrismaClient } from "@prisma/client";
+import prisma from "../util/prisma";
 import { useAgencies } from "../Context/AgenciesProvider/AgenciesProvider";
 
 export async function getServerSideProps() {
-  const prisma = new PrismaClient();
   const agencies = await prisma.agency.findMany();
   return {
     props: {

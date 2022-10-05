@@ -44,7 +44,6 @@ const login = (props) => {
   });
 
   const onSubmitLogin = handleSubmit(async (data) => {
-    console.log(data);
     const res = await fetch("api/auth/login", {
       method: "POST",
       body: JSON.stringify(data),
@@ -52,6 +51,8 @@ const login = (props) => {
     if (res.status == 500) return alert("something went wrong");
 
     const json = await res.json();
+    console.log(json);
+
     if (json.message)
       setResLoginError((prev) => {
         return { ...prev, message: json.message };
@@ -63,14 +64,11 @@ const login = (props) => {
   });
 
   const onSubmitSingup = handleSubmitSignup(async (data) => {
-    console.log(data);
     const res = await fetch("api/auth", {
       method: "POST",
       body: JSON.stringify(data),
     });
-    // if (!res.ok) return alert("smth went wrong");
     const json = await res.json();
-    console.log(json);
     if (json.message == "This email already exist")
       setResSignupError((prev) => {
         return { ...prev, email: json.message };

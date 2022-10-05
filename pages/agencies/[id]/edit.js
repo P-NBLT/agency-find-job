@@ -5,12 +5,10 @@ import { Header } from "../../../component/molecules";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import styles from "../../../styles/Form.module.css";
-import { PrismaClient } from "@prisma/client";
-import Loading from "../../../component/organism";
+import prisma from "../../../util/prisma";
 
 export async function getServerSideProps(context) {
   const id = Number(context.query.id);
-  const prisma = new PrismaClient();
   const agency = await prisma.agency.findUnique({
     where: {
       id: id,
@@ -49,21 +47,17 @@ function Edit({ agency }) {
       const res = await fetch("/api/auth/authenticate", { method: "GET" });
       if (res.status == 500) return alert("Something went wrong");
       const json = await res.json();
-      console.log("myJson", json);
       if (!json.success) router.push("/check-in");
     }
     checkIfLogedin();
   }, []);
 
-  // console.log(agency);
   const onSubmit = handleSubmit(async (data, e) => {
-    console.log(data);
     setIsLoading(true);
     const res = await fetch(`../../api/agencies/${router.query.id}/edit`, {
       method: "PATCH",
       body: JSON.stringify(data),
     });
-    console.log(res);
 
     if (!res.ok) {
       alert(
@@ -71,7 +65,7 @@ function Edit({ agency }) {
       );
     }
     const json = await res.json();
-    console.log(json);
+
     if (json.message) router.push("/login");
     router.push("/agencies/success");
   });

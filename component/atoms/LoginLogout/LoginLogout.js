@@ -5,7 +5,7 @@ import { useTheme } from "../../../Context/ThemeProvider/ThemeProvider";
 import Link from "next/link";
 import styles from "./LoginLogout.module.css";
 
-const LoginLogout = ({ logout, ...props }) => {
+const LoginLogout = ({ fun, ...props }) => {
   const login = useLogin().isLogin;
   const drakTheme = useTheme();
 
@@ -20,7 +20,7 @@ const LoginLogout = ({ logout, ...props }) => {
       </p>
     </Link>
   ) : (
-    <p onClick={logout} className={styles.login} style={LOGIN_STYLE}>
+    <p onClick={fun} className={styles.login} style={LOGIN_STYLE}>
       Logout
     </p>
   );

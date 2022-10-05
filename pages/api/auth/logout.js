@@ -1,11 +1,13 @@
 import cookie from "cookie";
+import { extractCookie } from "../../../util/Middleware/middleWare";
 
 export default async function logout(req, res) {
+  const token = extractCookie(req.headers);
+
   res
     .setHeader(
       "Set-Cookie",
-      cookie.serialize("token", { maxAge: -1, path: "/" })
+      cookie.serialize("token", token, { maxAge: -1, path: "/" })
     )
-    .status(200)
     .json({ success: true });
 }

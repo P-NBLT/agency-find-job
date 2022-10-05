@@ -1,5 +1,4 @@
-import { PrismaClient } from "@prisma/client";
-import { verify } from "jsonwebtoken";
+import prisma from "../../../util/prisma";
 import {
   extractCookie,
   verifyToken,
@@ -9,7 +8,6 @@ const prisma = new PrismaClient();
 
 export default async (req, res) => {
   const { method, body, headers } = req;
-  console.log("headers from the form", headers);
 
   const isVerified = verifyToken(extractCookie(headers));
   if (!isVerified) res.status(401).json({ message: "User not authenticated." });

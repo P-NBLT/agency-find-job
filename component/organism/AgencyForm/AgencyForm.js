@@ -12,7 +12,6 @@ const AgencyForm = ({
   buttonLabel,
   ...props
 }) => {
-  console.log("register");
   return (
     <div className={styles.containerMaster}>
       <form className={styles.container} onSubmit={onSubmit} id="postput">

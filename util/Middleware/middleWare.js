@@ -4,15 +4,13 @@ import {
   authenticateErrorResponse,
 } from "../../util/errorFunction/errorFunction";
 import cookie from "cookie";
-import { prisma } from "../prisma";
 
 export default function authenticate(req, res, next) {
   try {
     const { headers } = req;
-    console.log("headerssss", headers.authorization);
+
     if (headers.authorization)
-      console.log(headers.authorization, headers.cookie);
-    if (!headers.authorization) throw new Error("A001");
+      if (!headers.authorization) throw new Error("A001");
     const authHeader = headers.authorization;
     const token = authHeader && authHeader.split(" ")[1];
     if (!token) throw new Error("A002");
@@ -37,15 +35,13 @@ export default function authenticate(req, res, next) {
           path: "/",
         })
       )
-      .json({ success: true });
+      .json({ success: true, token: token, cookie: req.headers.cookie });
   } catch (err) {
-    console.log("irror", Object.entries(err), err);
     if (authenticateError(err)) return authenticateErrorResponse(err, res);
   }
 }
 
-export function verifyToken(token, req, res) {
-  console.log("in the verify");
+export function verifyToken(token, res) {
   let user;
   verify(token, process.env.ACCESS_TOKEN_SECRET, function (error, result) {
     if (error) {
@@ -56,10 +52,7 @@ export function verifyToken(token, req, res) {
         token: token,
       });
     }
-    console.log("not in error");
     user = result;
-
-    console.log("no error, and should have user", user);
   });
 
   if (!user) return false;
@@ -67,7 +60,6 @@ export function verifyToken(token, req, res) {
 }
 
 export function extractCookie(headers) {
-  console.log("in the extract");
   const cookieHeaders = headers.cookie && headers.cookie;
   if (!cookieHeaders) throw new Error("Missing token in the cookie");
   const cookieToken = cookieHeaders.split("=")[1];
