@@ -9,7 +9,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useLogin } from "../Context/LoginProvider/LoginProvider";
 import { useTheme } from "../Context/ThemeProvider/ThemeProvider";
 
-const login = (props) => {
+const CheckIn = (props) => {
   const [apiResponse, setApiResponse] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [resLoginError, setResLoginError] = useState({ message: "" });
@@ -196,6 +196,6 @@ const login = (props) => {
   );
 };
 
-login.propTypes = {};
+CheckIn.propTypes = {};
 
-export default login;
+export default CheckIn;

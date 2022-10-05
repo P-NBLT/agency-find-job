@@ -4,8 +4,6 @@ import {
   verifyToken,
 } from "../../../util/Middleware/middleWare";
 
-const prisma = new PrismaClient();
-
 export default async (req, res) => {
   const { method, body, headers } = req;
 
