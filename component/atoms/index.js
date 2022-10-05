@@ -10,3 +10,4 @@ export { default as Image } from "../atoms/Image/Image";
 export { default as RadioCheckbox } from "../atoms/RadioCheckbox/RadioCheckbox";
 export { default as Settings } from "../atoms/Settings/Settings";
 export { default as Input } from "../atoms/Input/Input";
+export { default as LoginLogout } from "../atoms/LoginLogout/LoginLogout";

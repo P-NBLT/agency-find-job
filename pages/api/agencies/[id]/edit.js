@@ -1,19 +1,20 @@
 import { PrismaClient } from "@prisma/client";
+import {
+  extractCookie,
+  verifyToken,
+} from "../../../../util/Middleware/middleWare";
 
 const prisma = new PrismaClient();
 export default async (req, res) => {
-  const { method, body } = req;
+  const { method, body, headers } = req;
   const data = JSON.parse(body);
   const { id } = req.query;
+  console.log("data", data);
+  const isVerified = verifyToken(extractCookie(headers));
+  if (!isVerified) res.status(401).json({ message: "User not authenticated." });
 
-  if (method === "PATCH") {
+  if (method === "PATCH" && isVerified) {
     if (data) {
-      console.log("PATCH", data);
-      //   const findAgency = await prisma.agencies.findUnique({
-      //     where: {
-      //       id: id
-      //     },
-      //   });
       const updatedAgency = await prisma.agency.update({
         where: {
           id: Number(id),

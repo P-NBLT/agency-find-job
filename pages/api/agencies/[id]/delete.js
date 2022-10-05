@@ -1,12 +1,18 @@
 import { PrismaClient } from "@prisma/client";
+import {
+  extractCookie,
+  verifyToken,
+} from "../../../../util/Middleware/middleWare";
 
 const prisma = new PrismaClient();
 
 export default async (req, res) => {
-  const { method, body } = req;
+  const { method, headers } = req;
   // const data = JSON.parse(body);
   const { id } = req.query;
-  console.log("the delete auery id = ", id);
+  const isVerified = verifyToken(extractCookie(headers));
+  if (!isVerified) res.status(401).json({ message: "User not authenticated." });
+
   if (method === "DELETE") {
     const deleteAgency = await prisma.agency.delete({
       where: {

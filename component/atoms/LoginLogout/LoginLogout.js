@@ -1,0 +1,33 @@
+import React from "react";
+import PropTypes from "prop-types";
+import { useLogin } from "../../../Context/LoginProvider/LoginProvider";
+import { useTheme } from "../../../Context/ThemeProvider/ThemeProvider";
+import Link from "next/link";
+import styles from "./LoginLogout.module.css";
+
+const LoginLogout = ({ logout, ...props }) => {
+  const login = useLogin().isLogin;
+  const drakTheme = useTheme();
+
+  const LOGIN_STYLE = {
+    color: drakTheme ? "var(--midnight)" : "white",
+  };
+
+  const credentials = !login ? (
+    <Link href="/check-in">
+      <p className={styles.login} style={LOGIN_STYLE}>
+        Login
+      </p>
+    </Link>
+  ) : (
+    <p onClick={logout} className={styles.login} style={LOGIN_STYLE}>
+      Logout
+    </p>
+  );
+
+  return <>{credentials};</>;
+};
+
+LoginLogout.propTypes = {};
+
+export default LoginLogout;

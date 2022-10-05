@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { AgencyForm } from "../../../component/organism";
+import { AgencyForm, Loading } from "../../../component/organism";
 import { Header } from "../../../component/molecules";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import styles from "../../../styles/Form.module.css";
 import { PrismaClient } from "@prisma/client";
+import Loading from "../../../component/organism";
 
 export async function getServerSideProps(context) {
   const id = Number(context.query.id);
@@ -43,7 +44,18 @@ function Edit({ agency }) {
     },
   });
 
-  console.log(agency);
+  useEffect(() => {
+    async function checkIfLogedin() {
+      const res = await fetch("/api/auth/authenticate", { method: "GET" });
+      if (res.status == 500) return alert("Something went wrong");
+      const json = await res.json();
+      console.log("myJson", json);
+      if (!json.success) router.push("/check-in");
+    }
+    checkIfLogedin();
+  }, []);
+
+  // console.log(agency);
   const onSubmit = handleSubmit(async (data, e) => {
     console.log(data);
     setIsLoading(true);
@@ -58,6 +70,9 @@ function Edit({ agency }) {
         "Bad Request! Make sure to fill the reference if you want to update the exisiting data"
       );
     }
+    const json = await res.json();
+    console.log(json);
+    if (json.message) router.push("/login");
     router.push("/agencies/success");
   });
 
@@ -75,7 +90,7 @@ function Edit({ agency }) {
           />
         </div>
       ) : (
-        <p>Loading...</p>
+        <Loading />
       )}
     </>
   );

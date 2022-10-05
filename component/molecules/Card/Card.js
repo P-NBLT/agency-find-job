@@ -27,8 +27,16 @@ const Card = (props) => {
     color: darkTheme ? "var(--dark-grey)" : "black",
   };
 
-  function handleIdForHandleModal(e) {
+  async function handleIdForHandleModal(e) {
     const id = e.target.id;
+
+    const isLogin = await fetch("../../api/auth/authenticate", {
+      method: "GET",
+    });
+    const isLoginResponse = await isLogin.json();
+    if (isLogin.status === 401 && !isLoginResponse.success)
+      return router.push("/check-in");
+
     if (id) {
       props.fun.handleModal(id);
     }
@@ -53,7 +61,16 @@ const Card = (props) => {
       >
         <FiEdit
           id={props.id}
-          onClick={() => router.push(`/agencies/${props.id}/edit`)}
+          onClick={async () => {
+            console.log("sending request");
+            const res = await fetch("../../api/auth/authenticate", {
+              method: "GET",
+            });
+            const json = await res.json();
+            console.log("json answer", json);
+            if (json.message && res.status == 401) router.push("/check-in");
+            if (json.success) router.push(`/agencies/${props.id}/edit`);
+          }}
         />
         <BsTrash id={props.id} onClick={handleIdForHandleModal} />
       </div>
