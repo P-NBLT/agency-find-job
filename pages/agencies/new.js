@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { AgencyForm } from "../../component/organism";
 import { Header } from "../../component/molecules";
 import styles from "../../styles/Form.module.css";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
+import Loading from "../../component/organism/Loading/Loading";
 
 const Form = (props) => {
   const [apiResponse, setApiResponse] = useState();
@@ -17,10 +18,21 @@ const Form = (props) => {
     formState: { errors },
   } = useForm({ reValidateMode: "onSubmit" });
 
+  useEffect(() => {
+    async function checkifLogedin() {
+      const res = await fetch("/api/auth/authenticate", {
+        method: "GET",
+      });
+      if (res.status == 500) return router.push("/");
+      const json = await res.json();
+      console.log(json);
+      if (!json.success) return router.push("/check-in");
+    }
+    checkifLogedin();
+  }, []);
+
   const onSubmit = handleSubmit(async (data, e) => {
     console.log(data);
-    // const reqType = e.nativeEvent.submitter.innerHTML;
-    // console.log("data", data);
     setIsLoading(true);
     const res = await fetch("../api/agencies", {
       method: "POST",
@@ -32,6 +44,10 @@ const Form = (props) => {
       alert(
         "Bad Request! Make sure to fill the reference if you want to update the exisiting data"
       );
+    }
+    const json = await res.json();
+    if (json.message) {
+      router.push("/check-in");
     }
     router.push("/agencies/success");
   });
@@ -50,7 +66,10 @@ const Form = (props) => {
           />
         </div>
       ) : (
-        <p>Loading...</p>
+        <div className={styles.body}>
+          <Header />
+          <Loading />
+        </div>
       )}
     </>
   );

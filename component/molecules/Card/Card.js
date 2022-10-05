@@ -1,23 +1,14 @@
 import styles from "./Card.module.css";
-import { InfoCard, Image, Button } from "../../atoms";
+import { InfoCard, Image } from "../../atoms";
 import { useTheme } from "../../../Context/ThemeProvider/ThemeProvider";
-import {
-  useData,
-  useFilter,
-} from "../../../Context/FilterProvider/FilterProvider";
-import { usePagination } from "../../../Context/PaginationProvider/PaginationProvider";
 import { FiEdit } from "react-icons/fi";
 import { BsTrash } from "react-icons/bs";
 import { useRouter } from "next/router";
-import { ModalDeleteAgency } from "..";
 import { useModal } from "../../../Context/ModalProvider/ModalProvider";
-import { useAgencies } from "../../../Context/AgenciesProvider/AgenciesProvider";
 
 const Card = (props) => {
   const darkTheme = useTheme();
   const router = useRouter();
-  const modal = useModal();
-  const modalId = "delete";
   const CARD_STYLE = {
     backgroundColor: darkTheme ? "var(--dark-blue)" : "white",
     borderRadius: "6px",
@@ -27,8 +18,16 @@ const Card = (props) => {
     color: darkTheme ? "var(--dark-grey)" : "black",
   };
 
-  function handleIdForHandleModal(e) {
+  async function handleIdForHandleModal(e) {
     const id = e.target.id;
+
+    const isLogin = await fetch("../../api/auth/authenticate", {
+      method: "GET",
+    });
+    const isLoginResponse = await isLogin.json();
+    if (isLogin.status === 401 && !isLoginResponse.success)
+      return router.push("/check-in");
+
     if (id) {
       props.fun.handleModal(id);
     }
@@ -53,7 +52,15 @@ const Card = (props) => {
       >
         <FiEdit
           id={props.id}
-          onClick={() => router.push(`/agencies/${props.id}/edit`)}
+          onClick={async () => {
+            const res = await fetch("../../api/auth/authenticate", {
+              method: "GET",
+            });
+            const json = await res.json();
+            console.log(json);
+            if (json.message && res.status == 401) router.push("/check-in");
+            if (json.success) router.push(`/agencies/${props.id}/edit`);
+          }}
         />
         <BsTrash id={props.id} onClick={handleIdForHandleModal} />
       </div>

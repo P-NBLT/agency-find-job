@@ -1,0 +1,24 @@
+.container {
+  display: flex;
+  justify-content: center;
+  margin-top: 100px;
+}
+
+.spinner {
+  width: 200px;
+  height: 200px;
+  color: var(--violet);
+  animation-name: spinner;
+  animation-duration: 5s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes spinner {
+  0% {
+    rotate: 0deg;
+  }
+
+  100% {
+    rotate: 360deg;
+  }
+}

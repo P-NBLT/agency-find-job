@@ -57,6 +57,7 @@ const ContentResult = ({ ...props }) => {
 
   async function sendDeleteRequest(e) {
     const id = e.target.id;
+
     const res = await fetch(`../../api/agencies/${id}/delete`, {
       method: "DELETE",
     });

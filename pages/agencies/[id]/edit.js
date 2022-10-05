@@ -1,15 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { AgencyForm } from "../../../component/organism";
+import { AgencyForm, Loading } from "../../../component/organism";
 import { Header } from "../../../component/molecules";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import styles from "../../../styles/Form.module.css";
-import { PrismaClient } from "@prisma/client";
+import prisma from "../../../util/prisma";
 
 export async function getServerSideProps(context) {
   const id = Number(context.query.id);
-  const prisma = new PrismaClient();
   const agency = await prisma.agency.findUnique({
     where: {
       id: id,
@@ -43,21 +42,31 @@ function Edit({ agency }) {
     },
   });
 
-  console.log(agency);
+  useEffect(() => {
+    async function checkIfLogedin() {
+      const res = await fetch("/api/auth/authenticate", { method: "GET" });
+      if (res.status == 500) return alert("Something went wrong");
+      const json = await res.json();
+      if (!json.success) router.push("/check-in");
+    }
+    checkIfLogedin();
+  }, []);
+
   const onSubmit = handleSubmit(async (data, e) => {
-    console.log(data);
     setIsLoading(true);
     const res = await fetch(`../../api/agencies/${router.query.id}/edit`, {
       method: "PATCH",
       body: JSON.stringify(data),
     });
-    console.log(res);
 
     if (!res.ok) {
       alert(
         "Bad Request! Make sure to fill the reference if you want to update the exisiting data"
       );
     }
+    const json = await res.json();
+
+    if (json.message) router.push("/login");
     router.push("/agencies/success");
   });
 
@@ -75,7 +84,7 @@ function Edit({ agency }) {
           />
         </div>
       ) : (
-        <p>Loading...</p>
+        <Loading />
       )}
     </>
   );

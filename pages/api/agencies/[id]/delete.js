@@ -1,12 +1,16 @@
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import prisma from "../../../../util/prisma";
+import {
+  extractCookie,
+  verifyToken,
+} from "../../../../util/Middleware/middleWare";
 
 export default async (req, res) => {
-  const { method, body } = req;
-  // const data = JSON.parse(body);
+  const { method, headers } = req;
+
   const { id } = req.query;
-  console.log("the delete auery id = ", id);
+  const isVerified = verifyToken(extractCookie(headers));
+  if (!isVerified) res.status(401).json({ message: "User not authenticated." });
+
   if (method === "DELETE") {
     const deleteAgency = await prisma.agency.delete({
       where: {
@@ -14,7 +18,6 @@ export default async (req, res) => {
       },
     });
     const updatedAgenciesListing = await prisma.agency.findMany();
-    console.log(updatedAgenciesListing);
 
     res.json(updatedAgenciesListing);
   }

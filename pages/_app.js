@@ -1,6 +1,7 @@
 import ThemeProvider from "../Context/ThemeProvider/ThemeProvider";
 import FilterProvider from "../Context/FilterProvider/FilterProvider";
 import AgenciesProvider from "../Context/AgenciesProvider/AgenciesProvider";
+import LoginProvider from "../Context/LoginProvider/LoginProvider";
 import "../styles/globals.css";
 
 function MyApp({ Component, pageProps }) {
@@ -8,7 +9,9 @@ function MyApp({ Component, pageProps }) {
     <ThemeProvider>
       <AgenciesProvider>
         <FilterProvider>
-          <Component {...pageProps} />
+          <LoginProvider>
+            <Component {...pageProps} />
+          </LoginProvider>
         </FilterProvider>
       </AgenciesProvider>
     </ThemeProvider>
