@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
 import styles from "./../styles/checkIn.module.css";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
