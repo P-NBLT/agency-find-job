@@ -4,7 +4,7 @@ import {
   verifyToken,
 } from "../../../../util/Middleware/middleWare";
 
-export default async (req, res) => {
+export default async function handleEdit(req, res) {
   const { method, body, headers } = req;
   const data = JSON.parse(body);
   const { id } = req.query;
@@ -32,4 +32,4 @@ export default async (req, res) => {
       res.status(400).json("Wrong request");
     }
   }
-};
+}

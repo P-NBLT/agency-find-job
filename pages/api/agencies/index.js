@@ -4,7 +4,7 @@ import {
   verifyToken,
 } from "../../../util/Middleware/middleWare";
 
-export default async (req, res) => {
+export default async function handler(req, res) {
   const { method, body, headers } = req;
 
   const isVerified = verifyToken(extractCookie(headers));
@@ -22,4 +22,4 @@ export default async (req, res) => {
     const renderAgency = await prisma.agency.findMany();
     res.status(200).json(renderAgency);
   }
-};
+}

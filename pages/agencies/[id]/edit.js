@@ -50,7 +50,7 @@ function Edit({ agency }) {
       if (!json.success) router.push("/check-in");
     }
     checkIfLogedin();
-  }, []);
+  });
 
   const onSubmit = handleSubmit(async (data, e) => {
     setIsLoading(true);

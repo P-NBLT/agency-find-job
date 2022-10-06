@@ -29,7 +29,7 @@ const Form = (props) => {
       if (!json.success) return router.push("/check-in");
     }
     checkifLogedin();
-  }, []);
+  });
 
   const onSubmit = handleSubmit(async (data, e) => {
     console.log(data);

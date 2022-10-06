@@ -27,7 +27,7 @@ export default function Home({ initialAgencies }) {
 
   useEffect(() => {
     getAgencies(initialAgencies);
-  }, []);
+  });
 
   return (
     <div style={BODY_STYLE} className={styles.padding}>

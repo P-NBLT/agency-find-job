@@ -4,7 +4,7 @@ import {
   verifyToken,
 } from "../../../../util/Middleware/middleWare";
 
-export default async (req, res) => {
+export default async function handleDelete(req, res) {
   const { method, headers } = req;
 
   const { id } = req.query;
@@ -21,4 +21,4 @@ export default async (req, res) => {
 
     res.json(updatedAgenciesListing);
   }
-};
+}
