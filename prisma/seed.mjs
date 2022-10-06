@@ -1,6 +1,7 @@
 import { dataSet } from "./data/data.mjs";
-import prisma from "../util/prisma";
+import { PrismaClient } from "@prisma/client";
 
+const prisma = new PrismaClient();
 const dataAgency = dataSet.agencies.map((agency) => ({
   name: agency.name,
   city: agency.city,
