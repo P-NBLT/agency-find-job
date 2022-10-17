@@ -1,3 +1,4 @@
+import dynamic from "next/dynamic";
 import PropTypes from "prop-types";
 import styles from "./ContentResult.module.css";
 import stylesCard from "../../molecules/Card/Card.module.css";
@@ -12,7 +13,11 @@ import {
   useFilter,
 } from "../../../Context/FilterProvider/FilterProvider";
 
-const ContentResult = ({ ...props }) => {
+const DynamicHeader = dynamic(() => import("../../molecules/Map/Maps.jsx"), {
+  ssr: false,
+});
+
+const ContentResult = ({ cities, ...props }) => {
   const pagination = usePagination();
   // add
   const pages = usePagination().pages;
@@ -76,7 +81,7 @@ const ContentResult = ({ ...props }) => {
 
   return (
     <>
-      {" "}
+      <DynamicHeader cities={cities} />{" "}
       <ModalDeleteAgency>
         <Button
           onClick={sendDeleteRequest}

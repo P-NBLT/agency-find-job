@@ -7,6 +7,7 @@ CREATE TABLE "Agency" (
     "size" TEXT NOT NULL,
     "website" TEXT NOT NULL,
     "logo" TEXT NOT NULL,
+    "cityId" INTEGER NOT NULL,
 
     CONSTRAINT "Agency_pkey" PRIMARY KEY ("id")
 );
@@ -26,5 +27,22 @@ CREATE TABLE "User" (
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "City" (
+    "id" SERIAL NOT NULL,
+    "city" TEXT NOT NULL,
+    "latitude" DOUBLE PRECISION NOT NULL,
+    "longitude" DOUBLE PRECISION NOT NULL,
+    "count" INTEGER NOT NULL,
+
+    CONSTRAINT "City_pkey" PRIMARY KEY ("id")
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "City_city_key" ON "City"("city");
+
+-- AddForeignKey
+ALTER TABLE "Agency" ADD CONSTRAINT "Agency_cityId_fkey" FOREIGN KEY ("cityId") REFERENCES "City"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

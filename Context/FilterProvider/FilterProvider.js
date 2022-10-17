@@ -25,11 +25,12 @@ function FilterProvider({ children }) {
   }, [agencies]);
 
   function handleTextInput(keyword, topic) {
+    console.log("from provider", keyword, topic);
     setKeywords((current) => {
       return { ...current, [topic]: keyword };
     });
   }
-
+  console.log("key", keywords);
   function handleCheckbox(value, topic, boolean) {
     let keywordsCopy = { ...keywords };
 
