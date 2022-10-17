@@ -7,8 +7,8 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = "file:./dev.db"
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model Agency{
@@ -19,6 +19,8 @@ region String
 size String
 website String
 logo String
+cityRef City @relation(fields: [cityId] ,references: [id])
+cityId Int 
 }
 
 model User{
@@ -27,6 +29,17 @@ model User{
   password String
   firstName String
   lastName String
+  admin Boolean @default(false)
+  verified Boolean @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model City{
+  id Int  @id @default(autoincrement()) 
+  city String @unique
+  latitude Float
+  longitude Float
+  count Int
+  agencies Agency[]
 }

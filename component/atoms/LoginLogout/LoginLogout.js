@@ -25,7 +25,7 @@ const LoginLogout = ({ fun, ...props }) => {
     </p>
   );
 
-  return <>{credentials};</>;
+  return <>{credentials}</>;
 };
 
 LoginLogout.propTypes = {};

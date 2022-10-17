@@ -24,3 +24,7 @@ input:focus {
   --dark-grey: #6e8098;
   --font-Kumbh: "Kumbh Sans", "sans-serif";
 }
+
+.svg-icon {
+  color: white;
+}
