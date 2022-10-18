@@ -2,10 +2,9 @@ import dynamic from "next/dynamic";
 import PropTypes from "prop-types";
 import styles from "./ContentResult.module.css";
 import stylesCard from "../../molecules/Card/Card.module.css";
-import { Card } from "../../molecules";
+import { Card, Modal } from "../../molecules";
 import { Button } from "../../atoms";
 import { usePagination } from "../../../Context/PaginationProvider/PaginationProvider";
-import { ModalDeleteAgency } from "../../molecules";
 import { useModal } from "../../../Context/ModalProvider/ModalProvider";
 import { useAgencies } from "../../../Context/AgenciesProvider/AgenciesProvider";
 import {
@@ -28,7 +27,6 @@ const ContentResult = ({ cities, ...props }) => {
   const modalDeleteAgencyId = useModal().modalDeleteAgencyId;
   const getAgencies = useAgencies().handleAgenciesFromServer;
   const setModalDeleteAgencyId = useModal().handleModalDeleteAgencyId;
-  const modalId = "delete";
 
   let arrData = data ? data.agencies : null;
 
@@ -56,7 +54,7 @@ const ContentResult = ({ cities, ...props }) => {
   } else res = <p>Error</p>;
 
   function handleModal(id) {
-    modal.toggleModal(modalId);
+    modal.toggleModal("delete");
     setModalDeleteAgencyId(id);
   }
 
@@ -67,7 +65,7 @@ const ContentResult = ({ cities, ...props }) => {
       method: "DELETE",
     });
     if (res.ok) {
-      modal.toggleModal(modalId);
+      modal.toggleModal("delete");
       const agencyListing = await fetch(`../../api/agencies/`, {
         method: "GET",
       });
@@ -82,19 +80,21 @@ const ContentResult = ({ cities, ...props }) => {
   return (
     <>
       <DynamicHeader cities={cities} />{" "}
-      <ModalDeleteAgency>
-        <Button
-          onClick={sendDeleteRequest}
-          id={modalDeleteAgencyId}
-          variant="primary"
-          size="medium"
-        >
-          Yes
-        </Button>
-        <Button variant="primary" size="medium" onClick={modal.toggleModal}>
-          Ooops.. no
-        </Button>
-      </ModalDeleteAgency>
+      {modal.modalId === "delete" && (
+        <Modal>
+          <Button
+            onClick={sendDeleteRequest}
+            id={modalDeleteAgencyId}
+            variant="primary"
+            size="medium"
+          >
+            Yes
+          </Button>
+          <Button variant="primary" size="medium" onClick={modal.toggleModal}>
+            Ooops.. no
+          </Button>
+        </Modal>
+      )}
       <div
         style={{
           display: "flex",

@@ -30,7 +30,7 @@ function FilterProvider({ children }) {
       return { ...current, [topic]: keyword };
     });
   }
-  console.log("key", keywords);
+
   function handleCheckbox(value, topic, boolean) {
     let keywordsCopy = { ...keywords };
 

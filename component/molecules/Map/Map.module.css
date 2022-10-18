@@ -1,4 +1,27 @@
 .map {
-  height: 400px;
-  width: 400px;
+  height: 300px;
+  width: 90vw;
+  z-index: 0;
+}
+
+.mapContainerMaster {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+  row-gap: 5px;
+}
+
+@media screen and (min-width: 600px) {
+  .map {
+    height: 300px;
+    width: 600px;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .map {
+    height: 400px;
+    width: 800px;
+  }
 }

@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { ModalFilterOptions } from "../../component/molecules";
+import { Modal } from "../../component/molecules";
 
 const ModalContext = React.createContext();
 
@@ -31,7 +31,7 @@ function ModalProvider({ children }) {
         modalId,
       }}
     >
-      <ModalFilterOptions /> {children}
+      <Modal /> {children}
     </ModalContext.Provider>
   );
 }

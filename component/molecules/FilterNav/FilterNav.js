@@ -1,7 +1,6 @@
-import React, { useState } from "react";
 import PropTypes from "prop-types";
 import styles from "./FilterNav.module.css";
-import modalStyles from "../Modal/ModalFilterOptions/ModalFilterOptions.module.css";
+import modalStyles from "../Modal/ModalFilterOptions.module.css";
 import { Button, InputFilterNav, RadioCheckbox } from "../../atoms";
 import { FiFilter } from "react-icons/fi";
 import { ImSearch } from "react-icons/im";
@@ -10,7 +9,8 @@ import { classNameBuilderHelper } from "../../../util/functionHelper";
 import { useTheme } from "../../../Context/ThemeProvider/ThemeProvider";
 import { useFilter } from "../../../Context/FilterProvider/FilterProvider";
 import { useModal } from "../../../Context/ModalProvider/ModalProvider";
-import ModalFilterOptions from "../Modal/ModalFilterOptions/ModalFilterOptions";
+import Modal from "../Modal/Modal";
+import { useMapProvider } from "../../../Context/MapProvider/MapProvider";
 
 const FilterNav = ({ children, variant, ...props }) => {
   const classNames = classNameBuilderHelper([variant], styles);
@@ -18,6 +18,8 @@ const FilterNav = ({ children, variant, ...props }) => {
   const filter = useFilter();
   const modal = useModal();
   const modalId = "filterOptions";
+  const toggleMap = useMapProvider().toggleMap;
+  const mapIsOpen = useMapProvider().mapIsOpen;
 
   function sendFilterInput(e) {
     if (e.target.id == "modal") {
@@ -41,29 +43,31 @@ const FilterNav = ({ children, variant, ...props }) => {
 
   return (
     <>
-      <ModalFilterOptions>
-        <div className={modalStyles.radioContainer}>
-          <p>Company size:</p>
-          {["1-10", "11-50", "51-100", "GT-100"].map((option) => (
-            <RadioCheckbox
-              id={option}
-              key={option}
-              onChange={(e) => {
-                filter.handleCheckbox(option, "size", e.target.checked);
-              }}
-              checked={filter.keywords?.size?.includes(option) || false}
-            />
-          ))}
-        </div>
-        <Button
-          variant="primary"
-          size="medium"
-          onClick={sendFilterInput}
-          id="modal"
-        >
-          Confirm
-        </Button>
-      </ModalFilterOptions>
+      {modal.modalId === "filterOptions" && (
+        <Modal>
+          <div className={modalStyles.radioContainer}>
+            <p>Company size:</p>
+            {["1-10", "11-50", "51-100", "GT-100"].map((option) => (
+              <RadioCheckbox
+                id={option}
+                key={option}
+                onChange={(e) => {
+                  filter.handleCheckbox(option, "size", e.target.checked);
+                }}
+                checked={filter.keywords?.size?.includes(option) || false}
+              />
+            ))}
+          </div>
+          <Button
+            variant="primary"
+            size="medium"
+            onClick={sendFilterInput}
+            id="modal"
+          >
+            Confirm
+          </Button>
+        </Modal>
+      )}
       <div className={styles.container}>
         <div className={styles.noMobile} style={BACKGROUND_FIELD}>
           <ImSearch className={styles.searchPic} />
@@ -79,6 +83,9 @@ const FilterNav = ({ children, variant, ...props }) => {
             variant="secondary"
             id="location"
             onChange={getInput}
+            onClick={() => {
+              !mapIsOpen && toggleMap();
+            }}
           />
           <Button
             variant="filterOption"
@@ -101,6 +108,9 @@ const FilterNav = ({ children, variant, ...props }) => {
             placeholder="Filter by city..."
             variant="mobile"
             onChange={getInput}
+            onClick={() => {
+              !mapIsOpen && toggleMap();
+            }}
           />
           <Button
             variant="fitContent"

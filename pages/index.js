@@ -8,6 +8,7 @@ import PaginationProvider from "../Context/PaginationProvider/PaginationProvider
 import { ContentResult } from "../component/organism";
 import prisma from "../util/prisma";
 import { useAgencies } from "../Context/AgenciesProvider/AgenciesProvider";
+import MapProvider from "../Context/MapProvider/MapProvider";
 
 export async function getServerSideProps() {
   const agencies = await prisma.agency.findMany();
@@ -38,7 +39,6 @@ export default function Home({ cities, initialAgencies }) {
   const BODY_STYLE = {
     backgroundColor: darkTheme ? "var(--midnight)" : "#F2F2F2",
   };
-
   useEffect(() => {
     getAgencies(initialAgencies);
   });
@@ -52,11 +52,13 @@ export default function Home({ cities, initialAgencies }) {
       </Head>
       <Header />
       <ModalProvider>
-        <FilterNav />
+        <MapProvider>
+          <FilterNav />
 
-        <PaginationProvider>
-          <ContentResult cities={cities} />
-        </PaginationProvider>
+          <PaginationProvider>
+            <ContentResult cities={cities} />
+          </PaginationProvider>
+        </MapProvider>
       </ModalProvider>
 
       <div className={styles.paginationButton}></div>

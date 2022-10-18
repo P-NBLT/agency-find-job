@@ -1,78 +1,56 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import markerIconPng from "leaflet/dist/images/marker-icon.png";
 import { icon, divIcon } from "leaflet";
-import {
-  MapContainer,
-  TileLayer,
-  Marker,
-  Tooltip,
-  CircleMarker,
-  Popup,
-  SVGOverlay,
-} from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Tooltip } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import styles from "./Map.module.css";
 import { useFilter } from "../../../Context/FilterProvider/FilterProvider";
 
+import { useMapProvider } from "../../../Context/MapProvider/MapProvider";
+import { Button } from "../../atoms";
+import getLocation from "../../../util/geolocation/geolocation";
+
 const Maps = ({ cities, ...props }) => {
-  const [test, setTest] = useState(0);
+  const [lat, setLat] = useState();
+  const [lon, setLon] = useState();
+
   const keyword = useFilter().keywords;
   const setKeyword = useFilter().handleTextInput;
-  console.log("count", test);
-  const eventHandlers = useMemo(
-    () => ({
-      click: () => {
-        setKeyword(el.name, "location");
-      },
-    }),
-    []
-  );
+  const submitRequest = useFilter().submitFilterInput;
+  const isOpen = useMapProvider().mapIsOpen;
+  const toggleMap = useMapProvider().toggleMap;
 
-  // const ICON = icon({
-  //   iconUrl: markerIconPng.src,
-  //   iconSize: [15, 18],
-  // });
+  useEffect(() => {
+    keyword && submitRequest();
+  }, [keyword]);
 
-  // const ICON = icon({
-  //   iconUrl:
-  //     '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="50" /></svg>',
-  //   iconSize: [15, 18],
-  // });
+  useEffect(() => {
+    getLocation(setLat, setLon);
+  }, []);
 
-  console.log(test);
   return (
-    <MapContainer
-      center={[52.3676, 4.9041]}
-      zoom={7}
-      scrollWheelZoom={false}
-      className={styles.map}
-    >
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
+    isOpen && (
+      <div className={styles.mapContainerMaster}>
+        <MapContainer
+          center={lat ? [lat, lon] : [52.3676, 4.9041]}
+          zoom={10}
+          scrollWheelZoom={false}
+          className={styles.map}
+        >
+          <TileLayer
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
 
-      {cities &&
-        cities.map((el) => {
-          return (
-            // <CircleMarker
-            //   center={[el.lat, el.lon]}
-            //   pathOptions={{ color: "gray" }}
-            //   radius={5}
-            //   key={el.name}
-            // >
-            //   <Tooltip eventHandlers={eventHandlers}>
-            //     {el.name} {el.count} {el.count > 1 ? "agencies" : "agency"} check
-            //     it out?
-            //   </Tooltip>
-            // </CircleMarker>
-
-            <Marker
-              position={[el.lat, el.lon]}
-              key={el.name}
-              icon={divIcon({
-                html: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><g xmlns="http://www.w3.org/2000/svg" transform="matrix(1 0 0 1 31.47 31.19)">
+          {cities &&
+            cities.map((el) => {
+              return (
+                <Marker
+                  position={[el.lat, el.lon]}
+                  key={el.name}
+                  icon={divIcon({
+                    html: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><g xmlns="http://www.w3.org/2000/svg" transform="matrix(1 0 0 1 31.47 31.19)">
                 <g style="">
                         <g transform="matrix(0.48 0 0 0.48 0 0)">
                 <linearGradient id="SVGID_1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(1 0 0 1 -65 -65)" x1="0" y1="0" x2="130" y2="130">
@@ -89,29 +67,28 @@ const Maps = ({ cities, ...props }) => {
                 </g>
                 </g>
                 </svg>`,
-                className: "svg-icon",
-                iconSize: [40, 40],
-                iconAnchor: [12, 40],
-              })}
-              eventHandlers={useMemo(
-                () => ({
-                  click() {
-                    setTest((prev) => {
-                      console.log("hello", prev);
-                      return prev + 1;
-                    });
-                  },
-                }),
-                []
-              )}
-            >
-              <Tooltip>
-                {el.name} {el.count} {el.count > 1 ? "agencies" : "agency"}
-              </Tooltip>
-            </Marker>
-          );
-        })}
-    </MapContainer>
+                    className: "svg-icon",
+                    iconSize: [40, 40],
+                    iconAnchor: [12, 40],
+                  })}
+                  eventHandlers={{
+                    click() {
+                      setKeyword(el.name, "location");
+                    },
+                  }}
+                >
+                  <Tooltip>
+                    {el.name} {el.count} {el.count > 1 ? "agencies" : "agency"}
+                  </Tooltip>
+                </Marker>
+              );
+            })}
+        </MapContainer>
+        <Button variant="primary" onClick={toggleMap}>
+          Close Map
+        </Button>
+      </div>
+    )
   );
 };
 
