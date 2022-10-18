@@ -4,7 +4,6 @@ import { useTheme } from "../../../Context/ThemeProvider/ThemeProvider";
 import { FiEdit } from "react-icons/fi";
 import { BsTrash } from "react-icons/bs";
 import { useRouter } from "next/router";
-import { useModal } from "../../../Context/ModalProvider/ModalProvider";
 
 const Card = (props) => {
   const darkTheme = useTheme();

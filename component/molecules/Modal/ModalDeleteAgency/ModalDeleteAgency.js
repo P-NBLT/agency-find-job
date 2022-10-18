@@ -15,7 +15,10 @@ const ModalDeleteAgency = ({ children, id, ...props }) => {
     backgroundColor: darkTheme ? "var(--midnight)" : "white",
     color: darkTheme ? "var(--dark-grey)" : "black",
   };
-  if (isOpen && modalId === "delete") {
+
+  console.log("hello from modal delete");
+
+  if (isOpen) {
     return ReactDom.createPortal(
       <>
         <div className={styles.outerDiv} />

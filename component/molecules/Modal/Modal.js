@@ -2,20 +2,20 @@ import React from "react";
 import ReactDom from "react-dom";
 import PropTypes from "prop-types";
 import styles from "./ModalFilterOptions.module.css";
-import { useModal } from "../../../../Context/ModalProvider/ModalProvider";
-import { useTheme } from "../../../../Context/ThemeProvider/ThemeProvider";
+import { useModal } from "../../../Context/ModalProvider/ModalProvider";
+import { useTheme } from "../../../Context/ThemeProvider/ThemeProvider";
 
-const ModalFilterOptions = ({ children, ...props }) => {
+const Modal = ({ children, ...props }) => {
   const isOpen = useModal().isOpen;
   const toggle = useModal().toggleModal;
-  const modalid = useModal().modalId;
   const darkTheme = useTheme();
 
   const INNERDIV_STYLE = {
     backgroundColor: darkTheme ? "var(--midnight)" : "white",
     color: darkTheme ? "var(--dark-grey)" : "black",
   };
-  if (isOpen && modalid === "filterOptions") {
+
+  if (isOpen) {
     return ReactDom.createPortal(
       <>
         <div className={styles.outerDiv} />
@@ -30,6 +30,6 @@ const ModalFilterOptions = ({ children, ...props }) => {
     );
   }
 };
-ModalFilterOptions.propTypes = {};
+Modal.propTypes = {};
 
-export default ModalFilterOptions;
+export default Modal;
