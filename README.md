@@ -31,9 +31,10 @@ This application allows you to look for agencies that are hiring developers in t
 
 App demo
 ---
-note: some of the features from this demo aren't available in the working version. I need to create an admin lvl inside my auth to control who and what is being modified.
+
 ![demo](https://user-images.githubusercontent.com/98712114/196496480-c56a7562-6f31-410e-8312-2245cd7373c4.gif)
 
+note: some of the features from this demo aren't available in the working version. I need to create an admin lvl inside my auth to control who and what is being modified.
 
 # Used technologies and concepts
 ---
