@@ -39,10 +39,8 @@ App demo
 ## 👇 Click links to see code sample in this project 👇
 
 - [Next for UI building](https://github.com/P-NBLT/static-website-project/blob/main/pages/index.js)
-- [Prisma to host and interact with the database] 🐣
-- [SQLite as the first database] 🐣
-- PostgreSQL for the futur database. Not yet implemented. 🐣
-- [React-hook-form forthe form] 🐣
-- [Yup for data validation (works with the form)] 🐣
+- [Prisma to host and interact with the database (PostgresSQL)] (https://github.com/P-NBLT/agency-find-job/blob/main/prisma/schema.prisma) 🐣
+- [React-hook-form forthe form] (https://github.com/P-NBLT/agency-find-job/blob/main/component/organism/AgencyForm/AgencyForm.js) 🐣
+- [Yup for data validation (works with the form)] (https://github.com/P-NBLT/agency-find-job/blob/main/validation/signup.js) 🐣
 
 🐣 *New technology learned during this project*
