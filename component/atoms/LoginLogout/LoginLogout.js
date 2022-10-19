@@ -10,7 +10,7 @@ const LoginLogout = ({ fun, ...props }) => {
   const drakTheme = useTheme();
 
   const LOGIN_STYLE = {
-    color: drakTheme ? "var(--midnight)" : "white",
+    color: "white",
   };
 
   const credentials = !login ? (

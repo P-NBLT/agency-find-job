@@ -21,7 +21,7 @@ const Header = (props) => {
       <Logo />
       <div className={styles.left}>
         <Toggle></Toggle>
-        <LoginLogout fun={logout} />
+        <LoginLogout fun={logout} className={styles.login} />
       </div>
     </div>
   );

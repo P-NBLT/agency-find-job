@@ -5,3 +5,7 @@
   margin: 32px 0 72px 0;
   margin-right: 6.4%;
 }
+
+.login:hover {
+  cursor: pointer;
+}
