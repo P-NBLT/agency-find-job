@@ -55,7 +55,7 @@ findAndCreate()
   });
 
 async function main() {
-  for (let city of data.coord) {
+  for (let city of data) {
     await prisma.city.create({
       data: city,
     });
