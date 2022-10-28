@@ -21,16 +21,16 @@ const FilterNav = ({ children, variant, ...props }) => {
   const modalId = "filterOptions";
   const toggleMap = useMapProvider().toggleMap;
   const mapIsOpen = useMapProvider().mapIsOpen;
-  const resetPagination = usePagination().reset;
+  // const resetPagination = usePagination().reset;
 
   function sendFilterInput(e) {
     if (e.target.id == "modal") {
       filter.submitFilterInput();
-      reset();
+      // reset();
       modal.toggleModal();
     } else {
       filter.submitFilterInput();
-      reset();
+      // reset();
     }
   }
 
