@@ -8,39 +8,28 @@ import {
   databaseError,
   dataBaseErrorResponse,
 } from "../../../util/errorFunction/errorFunction";
+import { verifyToken } from "../../../util/Middleware/middleWare";
 
 export default async function handler(req, res) {
   const { body, method } = req;
-  const data = JSON.parse(body);
-  if (method !== "POST")
-    return res.status(404).json("This route only accept a POST method");
-
   try {
-    const isvalidateUser = await signupSchema.validate(data);
-    if (!isvalidateUser) throw new Error(signupSchema.validateSync());
+    const token = req.headers.cookie.slice("6");
+    if (!token) res.status(404).json({ message: "not authenticated" });
+    // console.log(token);
 
-    data.password = await bcrypt.hash(data.password, 10);
+    const userFromToken = verifyToken(token, res);
+    // console.log(user);
 
-    const findUser = await prisma.user.findUnique({
+    const userDb = await prisma.user.findUnique({
       where: {
-        email: data.email,
-      },
-    });
-    if (findUser) res.status(400).json({ message: "This email already exist" });
-
-    const user = await prisma.user.create({
-      data: {
-        firstName: data.firstName,
-        lastName: data.lastName,
-        email: data.email,
-        password: data.password,
+        id: userFromToken.id,
       },
     });
 
-    return res.status(201).json(data);
+    return res.status(200).json("success");
   } catch (err) {
     if (databaseError(err)) return dataBaseErrorResponse(err, res);
     if (validationError(err)) return validationErrorResponse(err, res);
-    return unknownError(err);
+    return unknownError(err, res);
   }
 }

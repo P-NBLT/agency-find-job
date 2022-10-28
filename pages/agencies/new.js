@@ -23,6 +23,7 @@ const Form = (props) => {
       const res = await fetch("/api/auth/authenticate", {
         method: "GET",
       });
+
       if (res.status == 500) return router.push("/");
       const json = await res.json();
       console.log(json);
@@ -46,7 +47,7 @@ const Form = (props) => {
       );
     }
     const json = await res.json();
-    if (json.message) {
+    if (json.message !== "sucess sent to agency db") {
       router.push("/check-in");
     }
     router.push("/agencies/success");

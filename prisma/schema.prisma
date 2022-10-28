@@ -55,6 +55,7 @@ model Dashboard{
   size String
   website String
   logo String
+  payload String
   verified Boolean @default(false)
   verifiedBy String @default("")
   createdAt DateTime @default(now())

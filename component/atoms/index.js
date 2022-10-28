@@ -1,3 +1,5 @@
+import { MdFiberPin } from "react-icons/md";
+
 export { default as Toggle } from "./Toggle/Toggle";
 export { default as Button } from "./Button/Button";
 export { default as InputFilterNav } from "../atoms/InputFilterNav/InputFilterNav";
@@ -11,3 +13,6 @@ export { default as RadioCheckbox } from "../atoms/RadioCheckbox/RadioCheckbox";
 export { default as Settings } from "../atoms/Settings/Settings";
 export { default as Input } from "../atoms/Input/Input";
 export { default as LoginLogout } from "../atoms/LoginLogout/LoginLogout";
+export { default as InfoBar } from "./Dashboard/InfoBar/InfoBar";
+export { default as MenuItem } from "./Dashboard/MenuItem/MenuItem";
+export { default as HeadersTable } from "./Dashboard/HeadersTable/HeadersTable";

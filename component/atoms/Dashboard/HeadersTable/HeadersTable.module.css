@@ -1,0 +1,25 @@
+.tdHead {
+  border-bottom: 1px solid black;
+  /* width: 100%; */
+}
+
+.tHeadContent {
+  resize: horizontal;
+  overflow: hidden;
+  /* max-width: 150px; */
+  min-width: fit-content;
+
+  height: 120px;
+  margin: 0px;
+  padding-right: 30px;
+  display: block;
+  height: fit-content;
+}
+
+.user {
+  background-color: burlywood;
+}
+
+.company {
+  background-color: var(--light-violet);
+}

@@ -94,12 +94,13 @@ async function dashboardSimulation() {
     data: {
       userName: "Paul",
       emailUser: "Paul@gmail.com",
-      companyName: "BigTechCo",
-      city: "Amsterdam",
-      region: "Noord-Holland",
-      size: "11-50",
-      website: "http://sodastudio.nl/",
-      logo: "https://eguide.nl/media/output/100_100/logo_soda_studio_emerce.png",
+      companyName: "BigTech",
+      city: "Rotterdam",
+      region: "Zuid-Holland",
+      size: "GT-100",
+      website: "http://www.humanoids.nl/",
+      logo: "https://eguide.nl/media/output/100_100/1_humanoids_logo.png",
+      payload: "create",
     },
   });
 }

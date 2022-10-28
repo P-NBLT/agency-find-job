@@ -14,6 +14,11 @@
 }
 /* size */
 
+.xSmall {
+  padding: 10px;
+  height: fit-content;
+}
+
 .small {
   width: 48px;
   height: 48px;

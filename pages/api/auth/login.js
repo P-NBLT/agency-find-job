@@ -31,7 +31,10 @@ export default async function login(req, res, next) {
 
     if (!validLogin) throw new Error("The password is incorrect");
 
-    const user = { id: findUser.id, name: findUser.firstName };
+    const user = {
+      id: findUser.id,
+      name: findUser.firstName,
+    };
 
     const accessToken = generateToken(user);
 

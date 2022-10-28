@@ -14,7 +14,7 @@ const CheckIn = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [resLoginError, setResLoginError] = useState({ message: "" });
   const [resSignupError, setResSignupError] = useState({ message: "" });
-  const handleLoginStatus = useLogin().loginLogout;
+  const handleLoginStatus = useLogin().login;
   const darkTheme = useTheme();
 
   const BACKGROUD_STYLE = {
@@ -63,7 +63,7 @@ const CheckIn = (props) => {
   });
 
   const onSubmitSingup = handleSubmitSignup(async (data) => {
-    const res = await fetch("api/auth", {
+    const res = await fetch("api/auth/signup", {
       method: "POST",
       body: JSON.stringify(data),
     });
@@ -72,6 +72,7 @@ const CheckIn = (props) => {
       setResSignupError((prev) => {
         return { ...prev, email: json.message };
       });
+    resetSignup();
   });
 
   return (

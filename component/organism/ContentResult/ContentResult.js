@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import PropTypes from "prop-types";
 import styles from "./ContentResult.module.css";
@@ -24,12 +25,24 @@ const ContentResult = ({ cities, ...props }) => {
   const data = useData();
   const modal = useModal();
   const filter = useFilter();
+  const keyword = useFilter().keywords;
   const modalDeleteAgencyId = useModal().modalDeleteAgencyId;
   const getAgencies = useAgencies().handleAgenciesFromServer;
+  const agencies = useAgencies().agencies;
   const setModalDeleteAgencyId = useModal().handleModalDeleteAgencyId;
 
-  let arrData = data ? data.agencies : null;
+  const [arrData, setArrData] = useState();
 
+  useEffect(() => {
+    if (!keyword) return setArrData(agencies);
+    return filter.submitFilterInput;
+  }, [agencies]);
+
+  useEffect(() => {
+    return setArrData(data?.agencies);
+    return;
+  }, [data]);
+  console.log(data);
   let res = [];
   if (arrData) {
     for (let index = pages * 20; index < arrData.length; index++) {
@@ -64,15 +77,17 @@ const ContentResult = ({ cities, ...props }) => {
     const res = await fetch(`../../api/agencies/${id}/delete`, {
       method: "DELETE",
     });
+    console.log(res);
+    const json = await res.json();
+    console.log(json);
     if (res.ok) {
       modal.toggleModal("delete");
       const agencyListing = await fetch(`../../api/agencies/`, {
         method: "GET",
       });
-      if (agencyListing.ok) {
+      if (json.authorisation) {
         const renderedAgencies = await agencyListing.json();
-        getAgencies(renderedAgencies);
-        setTimeout(() => filter.submitFilterInput(renderedAgencies), 1);
+        return getAgencies(renderedAgencies);
       }
     }
   }
