@@ -11,6 +11,7 @@ import { useFilter } from "../../../Context/FilterProvider/FilterProvider";
 import { useModal } from "../../../Context/ModalProvider/ModalProvider";
 import Modal from "../Modal/Modal";
 import { useMapProvider } from "../../../Context/MapProvider/MapProvider";
+import { usePagination } from "../../../Context/PaginationProvider/PaginationProvider";
 
 const FilterNav = ({ children, variant, ...props }) => {
   const classNames = classNameBuilderHelper([variant], styles);
@@ -20,12 +21,17 @@ const FilterNav = ({ children, variant, ...props }) => {
   const modalId = "filterOptions";
   const toggleMap = useMapProvider().toggleMap;
   const mapIsOpen = useMapProvider().mapIsOpen;
+  const resetPagination = usePagination().reset;
 
   function sendFilterInput(e) {
     if (e.target.id == "modal") {
       filter.submitFilterInput();
+      reset();
       modal.toggleModal();
-    } else filter.submitFilterInput();
+    } else {
+      filter.submitFilterInput();
+      reset();
+    }
   }
 
   function getInput(e) {

@@ -43,6 +43,7 @@ const ContentResult = ({ cities, ...props }) => {
     return;
   }, [data]);
   console.log(data);
+
   let res = [];
   if (arrData) {
     for (let index = pages * 20; index < arrData.length; index++) {

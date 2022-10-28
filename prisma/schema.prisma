@@ -19,8 +19,8 @@ region String
 size String
 website String
 logo String
-cityRef City @relation(fields: [cityId] ,references: [id])
-cityId Int 
+cityRef City? @relation(fields: [cityId] ,references: [id])
+cityId  Int? 
 }
 
 model User{

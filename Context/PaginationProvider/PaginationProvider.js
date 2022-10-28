@@ -10,6 +10,10 @@ function PaginationProvider({ children }) {
   const [pages, setPages] = useState(0);
   const [cards, setCards] = useState(0);
 
+  function reset() {
+    setPages(0);
+  }
+
   function incrementPage() {
     setPages((current) => (current += 1));
     setCards((current) => (current += 1));
