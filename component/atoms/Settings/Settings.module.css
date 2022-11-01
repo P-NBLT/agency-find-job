@@ -47,3 +47,7 @@
   cursor: pointer;
   background-color: var(--dark-grey);
 }
+
+.settingPic:hover {
+  cursor: pointer;
+}
