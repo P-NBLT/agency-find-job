@@ -51,9 +51,9 @@ const Form = (props) => {
       );
     }
     const json = await res.json();
-    if (json.message !== "sucess sent to agency db") {
-      router.push("/check-in");
-    }
+    // if (json.message !== "sucess sent to agency db") {
+    //   router.push("/check-in");
+    // }
     router.push("/agencies/success");
   });
 

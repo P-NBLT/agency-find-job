@@ -11,7 +11,7 @@ export async function getServerSideProps({ req, res }) {
   const { headers } = req;
   const redirect = await isRedirect(headers);
 
-  if (redirect === true) {
+  if (redirect) {
     return {
       redirect: {
         destination: "/check-in",
