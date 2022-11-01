@@ -32,15 +32,22 @@ const ContentResult = ({ cities, ...props }) => {
   const setModalDeleteAgencyId = useModal().handleModalDeleteAgencyId;
 
   const [arrData, setArrData] = useState();
-
+  const [maxPages, setMaxPages] = useState(0);
   useEffect(() => {
-    if (!keyword) return setArrData(agencies);
-    return filter.submitFilterInput;
+    console.log(agencies);
+    if (agencies) {
+      setMaxPages(agencies.length / 20);
+      if (!keyword) return setArrData(agencies);
+      return filter.submitFilterInput;
+    }
   }, [agencies]);
 
   useEffect(() => {
-    return setArrData(data?.agencies);
-    return;
+    console.log("data", data);
+    if (data?.agencies) {
+      setMaxPages(data.agencies.length / 20);
+      return setArrData(data?.agencies);
+    }
   }, [data]);
   console.log(data);
 
@@ -71,7 +78,7 @@ const ContentResult = ({ cities, ...props }) => {
     modal.toggleModal("delete");
     setModalDeleteAgencyId(id);
   }
-
+  console.log("pages", pages, "max pages", maxPages);
   async function sendDeleteRequest(e) {
     const id = e.target.id;
 
@@ -123,14 +130,22 @@ const ContentResult = ({ cities, ...props }) => {
           <Button
             variant="primary"
             size="small"
-            onClick={pagination.decrementPage}
+            onClick={() => {
+              console.log("pages", pages, "max pages", maxPages);
+              pagination.decrementPage();
+            }}
           >
             {`<<`}
           </Button>
           <Button
             variant="primary"
             size="small"
-            onClick={pagination.incrementPage}
+            onClick={() => {
+              console.log("pages", pages, "max pages", maxPages);
+              if (pages < maxPages - 1) {
+                pagination.incrementPage();
+              }
+            }}
           >
             {`>>`}
           </Button>

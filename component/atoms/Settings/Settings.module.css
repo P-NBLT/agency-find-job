@@ -1,50 +1,49 @@
+/* @media screen and (max-width: 500px) { */
+.settingPic {
+  margin: 32px 0 72px 0;
+  margin-right: 6.4%;
+  width: 50px;
+  height: 30px;
+}
+.largeScreen {
+  display: none;
+}
+.settingsChekbox {
+  display: none;
+}
+
+.settingsOtpions {
+  display: none;
+  font-family: var(--font-Kumbh);
+}
+
+.settingsOtpions > div {
+  background-color: rgb(242, 242, 242);
+  border: 1px solid var(--dark-grey);
+  padding: 10px 10px;
+}
+
+.settingsChekbox:checked ~ .settingsOtpions {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  margin-top: -72px;
+}
+
 @media screen and (max-width: 500px) {
   .settingPic {
-    margin: 32px 0 72px 0;
-    margin-right: 6.4%;
-    width: 50px;
-    height: 35px;
-  }
-  .largeScreen {
-    display: none;
-  }
-  .settingsChekbox {
-    display: none;
-  }
-
-  .settingsOtpions {
-    display: none;
-    font-family: var(--font-Kumbh);
-  }
-
-  .settingsOtpions > div {
-    background-color: rgb(242, 242, 242);
-    border: 1px solid var(--dark-grey);
-    padding: 10px 10px;
-  }
-  .settingsChekbox:checked + .settingsOtpions {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    right: 30px;
-    top: 70px;
-  }
-}
-
-@media screen and (min-width: 500px) {
-  .settingPic {
     margin-top: 30px;
-    width: 50px;
-    height: 35px;
   }
-  .mobile {
+  /* .mobile {
     display: none;
-  }
+  } */
 }
-@media screen and (min-width: 1000px) {
-  .settingPic {
-    position: absolute;
+@media screen and (max-width: 1000px) {
+}
 
-    right: 4%;
-  }
+.settingsDashboard:hover,
+.settingsTheme:hover,
+.settingsLogin:hover {
+  cursor: pointer;
+  background-color: var(--dark-grey);
 }

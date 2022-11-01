@@ -10,8 +10,6 @@ import { useLogin } from "../Context/LoginProvider/LoginProvider";
 import { useTheme } from "../Context/ThemeProvider/ThemeProvider";
 
 const CheckIn = (props) => {
-  const [apiResponse, setApiResponse] = useState();
-  const [isLoading, setIsLoading] = useState(false);
   const [resLoginError, setResLoginError] = useState({ message: "" });
   const [resSignupError, setResSignupError] = useState({ message: "" });
   const handleLoginStatus = useLogin().login;
@@ -43,6 +41,8 @@ const CheckIn = (props) => {
   });
 
   const onSubmitLogin = handleSubmit(async (data) => {
+    console.log("data siggnup ", data, data.eamil);
+    data.email = data.email.toLowerCase();
     const res = await fetch("api/auth/login", {
       method: "POST",
       body: JSON.stringify(data),
@@ -63,6 +63,8 @@ const CheckIn = (props) => {
   });
 
   const onSubmitSingup = handleSubmitSignup(async (data) => {
+    console.log("data siggnup ", data, data.email);
+    data.email = data.email.toLowerCase();
     const res = await fetch("api/auth/signup", {
       method: "POST",
       body: JSON.stringify(data),

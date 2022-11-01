@@ -6,8 +6,23 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import styles from "../../../styles/Form.module.css";
 import prisma from "../../../util/prisma";
+import { isRedirect } from "../../../util/functionHelper";
 
-export async function getServerSideProps(context) {
+// export async function getServerSideProps({ req, res }) {}
+
+export async function getServerSideProps({ req, res, ...context }) {
+  const { headers } = req;
+  const redirect = await isRedirect(headers);
+  console.log("redirecrtt", redirect);
+  if (redirect) {
+    return {
+      redirect: {
+        destination: "/check-in",
+        permanent: false,
+      },
+    };
+  }
+  console.log("context", context);
   const id = Number(context.query.id);
   const agency = await prisma.agency.findUnique({
     where: {

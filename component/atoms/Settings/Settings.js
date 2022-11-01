@@ -9,14 +9,16 @@ import {
   useToggle,
 } from "../../../Context/ThemeProvider/ThemeProvider";
 import { Toggle } from "../index";
+import { isRedirect } from "../../../util/functionHelper";
 
-const Settings = (props) => {
+const Settings = ({ admin, ...props }) => {
   const darkTheme = useTheme();
   const toggle = useToggle();
   const router = useRouter();
   const SETTINGS_STYLE = {
     color: darkTheme ? "var(--dark-blue)" : "white",
   };
+  console.log("isAdmin", admin);
   return (
     <>
       <div className={styles.largeScreen}>
@@ -35,14 +37,23 @@ const Settings = (props) => {
             id="settingsChekbox"
           />
           <div className={styles.settingsOtpions}>
-            <div className={styles.settingsTheme} onClick={toggle}>
-              {darkTheme ? <div>lightTheme</div> : <div>darkTheme</div>}
-            </div>
+            {admin && (
+              <div
+                className={styles.settingsDashboard}
+                onClick={() => router.push("/dashboard")}
+              >
+                Dashboard
+              </div>
+            )}
+
             <div
               className={styles.settingsLogin}
-              onClick={() => router.push("./form")}
+              onClick={() => router.push("./agencies/new")}
             >
-              Form
+              Add an Agency
+            </div>
+            <div className={styles.settingsTheme}>
+              <Toggle />
             </div>
           </div>
         </label>

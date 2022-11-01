@@ -6,9 +6,27 @@ import styles from "../../styles/Form.module.css";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import Loading from "../../component/organism/Loading/Loading";
+import { isRedirect } from "../../util/functionHelper";
+
+export async function getServerSideProps({ req, res }) {
+  const { headers } = req;
+  const redirect = await isRedirect(headers);
+  if (redirect) {
+    return {
+      redirect: {
+        destination: "/check-in",
+        permanent: false,
+      },
+    };
+  }
+  return {
+    props: {
+      null: null,
+    },
+  };
+}
 
 const Form = (props) => {
-  const [apiResponse, setApiResponse] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const {
@@ -17,20 +35,6 @@ const Form = (props) => {
     reset,
     formState: { errors },
   } = useForm({ reValidateMode: "onSubmit" });
-
-  useEffect(() => {
-    async function checkifLogedin() {
-      const res = await fetch("/api/auth/authenticate", {
-        method: "GET",
-      });
-
-      if (res.status == 500) return router.push("/");
-      const json = await res.json();
-      console.log(json);
-      if (!json.success) return router.push("/check-in");
-    }
-    checkifLogedin();
-  });
 
   const onSubmit = handleSubmit(async (data, e) => {
     console.log(data);
@@ -62,7 +66,6 @@ const Form = (props) => {
             onSubmit={onSubmit}
             register={register}
             errors={errors}
-            feedback={apiResponse}
             buttonLabel="Add Agency"
           />
         </div>

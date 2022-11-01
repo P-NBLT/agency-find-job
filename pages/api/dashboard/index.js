@@ -3,7 +3,6 @@ import { formatCity, getGeoCity } from "../../../util/functionHelper";
 
 export default async function handleDashboard(req, res) {
   const { method, body } = req;
-  console.log(body);
   const data = body;
 
   if (method === "GET") {
@@ -37,7 +36,6 @@ export default async function handleDashboard(req, res) {
             id: agency.id,
           },
         });
-        console.log("deleted agency", deletewaitingAgencies, agency);
       }
       res.status(201).json({ success: true });
     } catch (e) {

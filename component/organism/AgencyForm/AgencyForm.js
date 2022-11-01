@@ -4,14 +4,8 @@ import { Button, Input } from "../../atoms";
 import { useForm } from "react-hook-form";
 import styles from "./AgencyForm.module.css";
 
-const AgencyForm = ({
-  onSubmit,
-  register,
-  errors,
-  feedback,
-  buttonLabel,
-  ...props
-}) => {
+const AgencyForm = ({ onSubmit, register, errors, buttonLabel, ...props }) => {
+  console.log(errors);
   return (
     <div className={styles.containerMaster}>
       <form className={styles.container} onSubmit={onSubmit} id="postput">
@@ -42,13 +36,22 @@ const AgencyForm = ({
             label="Region"
           />
           {errors.region?.message}
-          <Input
-            type="text"
-            register={{
-              ...register("size", { required: "This is field is required" }),
-            }}
+          <label htmlFor="size">Company Size</label>
+          <select
+            style={{ height: "30px", borderRadius: "8px" }}
+            {...register("size", {
+              required: "This is field is required",
+              pattern: /1-10|11-50|51-100|GT-100/,
+            })}
             label="Company size"
-          />
+            id="size"
+          >
+            <option value="null">Select one of the option</option>
+            <option value="1-10">1-10</option>
+            <option value="11-50">11-50</option>
+            <option value="51-100">51-100</option>
+            <option value="GT-100">GT-100</option>
+          </select>
           {errors.size?.message}
           <Input
             type="text"
@@ -79,7 +82,6 @@ const AgencyForm = ({
           </Button>
         </div>
       </form>
-      <div>{feedback && <pre>{feedback}</pre>}</div>
     </div>
   );
 };

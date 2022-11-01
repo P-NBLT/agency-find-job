@@ -4,24 +4,38 @@ import { useRouter } from "next/router";
 import { Card } from "../../component/molecules";
 import stylesCard from "../../component/molecules/Card/Card.module.css";
 import styles from "../../styles/success.module.css";
-function Success() {
-  const [newAgency, setNewAgency] = useState();
-  const router = useRouter();
+import prisma from "../../util/prisma";
 
-  useEffect(() => {
-    async function getNewCard() {
-      const res = await fetch("../api/agencies/read", {
-        method: "GET",
-      });
-      if (!res.ok) {
-        alert("something went wrong");
-      }
-      const resAgency = await res.json();
-      setNewAgency(resAgency);
-    }
-    getNewCard();
-  }, []);
-  // console.log(newAgency.website);
+import { isRedirect } from "../../util/functionHelper";
+export async function getServerSideProps({ req, res }) {
+  const { headers } = req;
+  const redirect = await isRedirect(headers);
+
+  if (redirect === true) {
+    return {
+      redirect: {
+        destination: "/check-in",
+        permanent: false,
+      },
+    };
+  }
+  const dashboard = await prisma.dashboard.findMany();
+  const sortedDashboard = await dashboard.sort((a, b) => b.id - a.id);
+
+  const last = sortedDashboard[0];
+  delete last.createdAt;
+  delete last.updatedAt;
+
+  return {
+    props: {
+      agency: last,
+    },
+  };
+}
+
+function Success({ agency }) {
+  const router = useRouter();
+  console.log("agency", agency);
 
   return (
     <div className={styles.successContainerMaster}>
@@ -29,17 +43,17 @@ function Success() {
         <h3>Succesful request! Here is the new Card</h3>
 
         <div className={`${stylesCard.cardContainer}`}>
-          {newAgency && (
+          {agency && (
             <Card
               isValid="notvisible"
-              href={newAgency.website}
-              img={newAgency.logo}
-              labelName={newAgency.name}
-              labelRegion={newAgency.region}
-              labelCity={newAgency.city}
-              labelSize={newAgency.size}
-              labelWebsite={newAgency.website}
-              id={newAgency.id}
+              href={agency.website}
+              img={agency.logo}
+              labelName={agency.companyName}
+              labelRegion={agency.region}
+              labelCity={agency.city}
+              labelSize={agency.size}
+              labelWebsite={agency.website}
+              id={agency.id}
             />
           )}
         </div>

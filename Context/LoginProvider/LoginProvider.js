@@ -9,19 +9,20 @@ export function useLogin() {
 
 export default function LoginProvider({ children }) {
   const router = useRouter();
+  const pathName = router.pathname;
   const [isLogin, setIsLogin] = useState(false);
-  console.log("label", isLogin);
 
+  console.log("router", router, pathName);
   useEffect(() => {
     WindowFocusHandler();
     window.localStorage.getItem("login")
       ? setIsLogin(JSON.parse(window.localStorage.getItem("login")))
       : null;
-  }, []);
+  }, [isLogin]);
 
-  setInterval(() => {
-    checkIfLog(setIsLogin, router);
-  }, 60100 * 15);
+  // setInterval(() => {
+  //   checkIfLog(setIsLogin, router, pathName);
+  // }, 60100 * 15);
 
   function loginLogout() {
     setIsLogin((prev) => !prev);
@@ -30,21 +31,23 @@ export default function LoginProvider({ children }) {
   function login() {
     setIsLogin(true);
     window.localStorage.setItem("login", true);
+    window.localStorage.setItem("admin", true);
   }
 
   function logout() {
     setIsLogin(false);
     window.localStorage.setItem("login", false);
+    window.localStorage.setItem("admin", false);
   }
 
   // User has switched back to the tab
   const onFocus = () => {
-    checkIfLog(setIsLogin, router);
+    checkIfLog(setIsLogin, router, pathName);
   };
 
   // User has switched away from the tab (AKA tab is hidden)
   const onBlur = () => {
-    checkIfLog(setIsLogin, router);
+    checkIfLog(setIsLogin, router, pathName);
   };
 
   function WindowFocusHandler() {
@@ -68,19 +71,22 @@ export default function LoginProvider({ children }) {
   );
 }
 
-async function checkIfLog(setIsLogin, router) {
-  console.log("hello");
+async function checkIfLog(setIsLogin, router, pathName) {
   const res = await fetch("../../api/auth/authenticate");
   const json = await res.json();
-  console.log(res);
+  console.log(res, json);
   if (res.status === 401) {
     window.localStorage.setItem("login", false);
+    window.localStorage.setItem("admin", false);
     setIsLogin(false);
-    router.push("/");
+    if (pathName !== "/" && pathName !== "/check-in") {
+      router.push("/");
+    }
   }
   if (res.ok) {
     if (json.success) {
       window.localStorage.setItem("login", true);
+      window.localStorage.setItem("admin", true);
       setIsLogin(true);
     }
   }

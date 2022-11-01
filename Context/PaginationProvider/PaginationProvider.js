@@ -31,7 +31,14 @@ function PaginationProvider({ children }) {
 
   return (
     <PaginationContext.Provider
-      value={{ pages, cards, incrementPage, decrementPage, loadMoreCards }}
+      value={{
+        pages,
+        cards,
+        incrementPage,
+        decrementPage,
+        loadMoreCards,
+        reset,
+      }}
     >
       {children}
     </PaginationContext.Provider>

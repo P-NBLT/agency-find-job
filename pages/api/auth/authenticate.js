@@ -15,15 +15,18 @@ export default async function checkAuthentication(req, res, next) {
     }
 
     const isVerified = verifyToken(extractCookie(headers), res);
-    console.log(isVerified);
+    // console.log(isVerified);
     if (!isVerified)
-      return res.status(401).json({ message: "User not auhtenticated" });
+      return res
+        .status(401)
+        .json({ message: "User not auhtenticated", success: false });
     return res.status(200).json({
       success: true,
       headers: {
         authorization: headers.authorization,
         cookie: headers.cookie,
       },
+      admin: isVerified.admin,
     });
   } catch (err) {
     if (authenticateError(err)) return authenticateErrorResponse(err, res);

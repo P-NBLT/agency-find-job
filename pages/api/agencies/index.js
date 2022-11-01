@@ -11,6 +11,7 @@ import {
 
 export default async function handler(req, res) {
   const { method, body, headers } = req;
+  console.log("trigger");
 
   try {
     const userFromToken = verifyToken(extractCookie(headers));

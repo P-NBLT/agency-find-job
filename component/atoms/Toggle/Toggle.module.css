@@ -1,12 +1,13 @@
 .icon {
   color: white;
+  color: var(--violet);
 }
 
 .toggle-container {
   display: flex;
   align-items: center;
   column-gap: 16px;
-  padding: 32px 0 72px 0;
+  /* padding: 32px 0 72px 0; */
   margin-right: 6.4%;
 }
 
@@ -48,7 +49,8 @@
 
 .layer {
   width: 100%;
-  background-color: #ebf7fc;
+  /* background-color: #ebf7fc; */
+  background-color: black;
   transition: 0.3s ease all;
   z-index: 1;
 }
@@ -73,7 +75,7 @@
 }
 
 .button .checkbox:checked + .knobs:before {
-  left: 25px;
+  left: 22px;
 }
 
 #button-1 .checkbox:checked ~ .layer {

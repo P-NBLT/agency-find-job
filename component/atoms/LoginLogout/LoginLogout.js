@@ -8,7 +8,6 @@ import styles from "./LoginLogout.module.css";
 const LoginLogout = ({ fun, ...props }) => {
   const login = useLogin().isLogin;
   const drakTheme = useTheme();
-  console.log(login);
   const LOGIN_STYLE = {
     color: "white",
   };

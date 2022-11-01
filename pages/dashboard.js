@@ -11,10 +11,39 @@ import { Table } from "../component/molecules";
 import prisma from "../util/prisma";
 import styles from "../styles/dashboard.module.css";
 import { useLogin } from "../Context/LoginProvider/LoginProvider";
+import { isRedirect } from "../util/functionHelper";
 
-export async function getServerSideProps() {
+export async function getServerSideProps({ req, res }) {
+  const { headers } = req;
+
+  const redirect = await isRedirect(headers, true);
+
+  if (typeof redirect === "object") {
+    const user = await prisma.user.findUnique({
+      where: {
+        id: redirect.id,
+      },
+    });
+    const isAdmin = await user.admin;
+
+    if (!isAdmin)
+      return {
+        redirect: {
+          destination: "/",
+          permanent: false,
+        },
+      };
+  }
+  if (redirect === true) {
+    return {
+      redirect: {
+        destination: "/check-in",
+        permanent: false,
+      },
+    };
+  }
+
   const items = await prisma.dashboard.findMany();
-  console.log(items);
 
   items.map((item) => {
     item.createdAt = JSON.stringify(item.createdAt);
@@ -35,8 +64,7 @@ const Dashboard = ({ items, ...props }) => {
   const [toConfirm, setToConfirm] = useState([]);
   const [idToFilter, setIdToFilter] = useState([]);
   const [acitveButton, setActiveButton] = useState(true);
-  const login = useLogin().isLogin;
-  console.log("login", useLogin().isLogin);
+
   useEffect(() => {
     if ((toConfirm.length === 0) & (toDelete.length === 0))
       return setActiveButton(true);
@@ -57,7 +85,6 @@ const Dashboard = ({ items, ...props }) => {
         return [...prev, findItem];
       });
   }
-  console.log(listItem, toConfirm);
 
   function removeIdToFilter(id, action) {
     setIdToFilter((prev) => prev.filter((el) => el != id));
