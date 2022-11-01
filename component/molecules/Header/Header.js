@@ -25,7 +25,7 @@ const Header = (props) => {
 
   return (
     <div className={styles.header}>
-      <Logo />
+      <Logo onClick={() => router.push("/")} />
       <div className={styles.left}>
         {/* <Toggle></Toggle> */}
         <Settings admin={admin} />

@@ -19,3 +19,7 @@
     margin-left: 11.45%;
   }
 }
+
+.logo:hover {
+  cursor: pointer;
+}
