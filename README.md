@@ -7,7 +7,8 @@
 
 [Find out the latest working version here.](https://agency-find-job.vercel.app/)
 
-This application allows you to look for agencies that are hiring developers in the Netherlands. The coming version will add an authentification feature plus the possibility to interact with the database whether you want to update an agency, add a new one or, delete the one which doesn't exist anymore. Your request will be then analyzed before it gets confirmed or rejected.
+This application allows you to look for agencies that are hiring developers in the Netherlands. The coming version will add a dashboard for the user where he can change his password and see if his request have been accepted or rejected. 
+User, if logged in can add, modify or delete agencies. Those actions are then sent to the admin section waiting for approval.
 
 ---
 
@@ -34,7 +35,9 @@ App demo
 
 ![demo](https://user-images.githubusercontent.com/98712114/196496480-c56a7562-6f31-410e-8312-2245cd7373c4.gif)
 
-note: some of the features from this demo aren't available in the working version. I need to create an admin lvl inside my auth to control who and what is being modified.
+Admin dashboard
+<img width="1130" alt="Screenshot 2022-11-01 at 10 46 11" src="https://user-images.githubusercontent.com/98712114/199206118-bd8e3418-2cbf-414e-a9e7-b396c6f315a9.png">
+
 
 # Used technologies and concepts
 ---
