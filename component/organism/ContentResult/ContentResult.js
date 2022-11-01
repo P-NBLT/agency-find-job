@@ -34,7 +34,6 @@ const ContentResult = ({ cities, ...props }) => {
   const [arrData, setArrData] = useState();
   const [maxPages, setMaxPages] = useState(0);
   useEffect(() => {
-    console.log(agencies);
     if (agencies) {
       setMaxPages(agencies.length / 20);
       if (!keyword) return setArrData(agencies);
@@ -43,13 +42,11 @@ const ContentResult = ({ cities, ...props }) => {
   }, [agencies]);
 
   useEffect(() => {
-    console.log("data", data);
     if (data?.agencies) {
       setMaxPages(data.agencies.length / 20);
       return setArrData(data?.agencies);
     }
   }, [data]);
-  console.log(data);
 
   let res = [];
   if (arrData) {
@@ -78,7 +75,7 @@ const ContentResult = ({ cities, ...props }) => {
     modal.toggleModal("delete");
     setModalDeleteAgencyId(id);
   }
-  console.log("pages", pages, "max pages", maxPages);
+
   async function sendDeleteRequest(e) {
     const id = e.target.id;
 

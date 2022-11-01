@@ -11,6 +11,7 @@ import { isRedirect } from "../../util/functionHelper";
 export async function getServerSideProps({ req, res }) {
   const { headers } = req;
   const redirect = await isRedirect(headers);
+  console.log(redirect);
   if (redirect) {
     return {
       redirect: {

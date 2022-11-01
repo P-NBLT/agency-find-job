@@ -21,6 +21,7 @@ const CheckIn = (props) => {
   };
 
   const router = useRouter();
+  console.log(router);
   const {
     register,
     handleSubmit,

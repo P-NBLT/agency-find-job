@@ -9,7 +9,6 @@ import {
   useToggle,
 } from "../../../Context/ThemeProvider/ThemeProvider";
 import { Toggle } from "../index";
-import { isRedirect } from "../../../util/functionHelper";
 
 const Settings = ({ admin, ...props }) => {
   const darkTheme = useTheme();
@@ -18,7 +17,7 @@ const Settings = ({ admin, ...props }) => {
   const SETTINGS_STYLE = {
     color: darkTheme ? "var(--dark-blue)" : "white",
   };
-  console.log("isAdmin", admin);
+
   return (
     <>
       <div className={styles.largeScreen}>

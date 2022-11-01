@@ -24,9 +24,9 @@ export default function LoginProvider({ children }) {
   //   checkIfLog(setIsLogin, router, pathName);
   // }, 60100 * 15);
 
-  function loginLogout() {
-    setIsLogin((prev) => !prev);
-  }
+  // function loginLogout() {
+  //   setIsLogin((prev) => !prev);
+  // }
 
   function login() {
     setIsLogin(true);
@@ -41,14 +41,14 @@ export default function LoginProvider({ children }) {
   }
 
   // User has switched back to the tab
-  const onFocus = () => {
-    checkIfLog(setIsLogin, router, pathName);
-  };
+  async function onFocus() {
+    await checkIfLog(setIsLogin, router, pathName);
+  }
 
   // User has switched away from the tab (AKA tab is hidden)
-  const onBlur = () => {
-    checkIfLog(setIsLogin, router, pathName);
-  };
+  async function onBlur() {
+    await checkIfLog(setIsLogin, router, pathName);
+  }
 
   function WindowFocusHandler() {
     window.addEventListener("focus", onFocus);
@@ -65,7 +65,7 @@ export default function LoginProvider({ children }) {
   }
 
   return (
-    <LoginContext.Provider value={{ isLogin, loginLogout, login, logout }}>
+    <LoginContext.Provider value={{ isLogin, login, logout }}>
       {children}
     </LoginContext.Provider>
   );
@@ -74,7 +74,6 @@ export default function LoginProvider({ children }) {
 async function checkIfLog(setIsLogin, router, pathName) {
   const res = await fetch("../../api/auth/authenticate");
   const json = await res.json();
-  console.log(res, json);
   if (res.status === 401) {
     window.localStorage.setItem("login", false);
     window.localStorage.setItem("admin", false);

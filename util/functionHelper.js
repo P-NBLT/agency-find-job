@@ -67,7 +67,6 @@ export async function getGeoCity(city) {
 
 export async function isRedirect(headers, check) {
   const cookieHeaders = headers.cookie && headers.cookie;
-  console.log("cookie header", cookieHeaders);
   if (!cookieHeaders) return true;
   const cookieToken = cookieHeaders.split("=")[1];
   const user = verify(
@@ -81,9 +80,9 @@ export async function isRedirect(headers, check) {
         return result;
       }
 
-      return true;
+      return false;
     }
   );
 
-  return false;
+  return user;
 }
