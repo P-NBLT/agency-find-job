@@ -181,7 +181,7 @@ const CheckIn = (props) => {
                     required: "This field is required",
                   }),
                 }}
-                label={"Confirm Password"}
+                label={"Confirm password"}
               />
               {errorsSignup.passwordConfirmation?.message}
               <Button
