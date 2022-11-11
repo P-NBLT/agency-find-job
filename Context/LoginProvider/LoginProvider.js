@@ -12,7 +12,6 @@ export default function LoginProvider({ children }) {
   const pathName = router.pathname;
   const [isLogin, setIsLogin] = useState(false);
 
-  console.log("router", router, pathName);
   useEffect(() => {
     WindowFocusHandler();
     window.localStorage.getItem("login")

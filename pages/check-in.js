@@ -98,7 +98,7 @@ const CheckIn = (props) => {
                     required: "This is field is required",
                   }),
                 }}
-                label="email"
+                label="Email"
               />
               {errors.email?.message}
 
@@ -109,7 +109,7 @@ const CheckIn = (props) => {
                     required: "This is field is required",
                   }),
                 }}
-                label="password"
+                label="Password"
               />
               {errors.password?.message}
               {resLoginError.message && <p>{resLoginError.message}</p>}
@@ -140,7 +140,7 @@ const CheckIn = (props) => {
                     required: "This field is required",
                   }),
                 }}
-                label={"First Name"}
+                label={"First name"}
               />
               {errorsSignup.firstName?.message}
               <Input
@@ -150,7 +150,7 @@ const CheckIn = (props) => {
                     required: "This field is required",
                   }),
                 }}
-                label={"Last Name"}
+                label={"Last name"}
               />
               {errorsSignup.lastName?.message}
               <Input
@@ -160,7 +160,7 @@ const CheckIn = (props) => {
                     required: "This field is required",
                   }),
                 }}
-                label={"email"}
+                label={"Email"}
               />
               {errorsSignup.email?.message}
               {resSignupError?.message}
@@ -171,7 +171,7 @@ const CheckIn = (props) => {
                     required: "This field is required",
                   }),
                 }}
-                label={"password"}
+                label={"Password"}
               />
               {errorsSignup.password?.message}
               <Input
@@ -181,7 +181,7 @@ const CheckIn = (props) => {
                     required: "This field is required",
                   }),
                 }}
-                label={"Comfirm Password"}
+                label={"Confirm Password"}
               />
               {errorsSignup.passwordConfirmation?.message}
               <Button
@@ -190,7 +190,7 @@ const CheckIn = (props) => {
                 form="signup"
                 padding="pd-small"
               >
-                Singup
+                Signup
               </Button>
             </form>
           </div>
